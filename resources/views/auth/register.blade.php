@@ -24,6 +24,61 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="lastName" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="lastName" type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
+
+                                @error('lastName')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="position" class="col-md-4 col-form-label text-md-end">{{ __('Position') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" required autocomplete="position" autofocus>
+
+                                @error('position')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="localization" class="col-md-4 col-form-label text-md-end">{{ __('Localization') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="localization" type="text" class="form-control @error('localization') is-invalid @enderror" name="localization" value="{{ old('localization') }}" required autocomplete="localization" autofocus>
+
+                                @error('localization')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="years" class="col-md-4 col-form-label text-md-end">{{ __('Years of Experience') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="years" type="number" class="form-control @error('years') is-invalid @enderror" name="years" value="{{ old('years') }}" required autocomplete="years">
+
+                                @error('years')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
@@ -60,6 +115,10 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+
+                        <input type='hidden' name='default' value='1'>
+                        <input type='hidden' name='img' value='default.jpg'>
+                        <input type='hidden' name='type' value='1'>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
