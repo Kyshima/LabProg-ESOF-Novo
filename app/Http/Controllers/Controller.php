@@ -31,4 +31,13 @@ class Controller extends BaseController
         return view('user.list',['user'=>$user]);
     }
 
+    public function registerC()
+    {
+        return view('auth/registerCandidato');
+    }
+
+    public function registerE(){
+        return view('auth/registerEmpresa');
+    }
+
 }
