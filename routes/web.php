@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use App\Http\Controllers\Controller;
 
 Route::get('/', [Controller::class, 'index']);
 Route::get('/teste', [Controller::class, 'teste']);
+
+Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
