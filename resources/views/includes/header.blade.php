@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" {{--href="{{ url('/') }}"--}}> <!-- Comentarios em Laravel sao com as chavetas e tracos -->
+                <a class="navbar-brand" href="{{ url('/') }}"> <!-- Comentarios em Laravel sao com as chavetas e tracos -->
                   <img src="{{URL::asset('/img/EternoCandidato.png')}}" alt="logo" height="50" width="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -30,7 +30,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ url('registerC') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else

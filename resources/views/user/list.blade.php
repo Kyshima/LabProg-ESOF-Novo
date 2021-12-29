@@ -27,7 +27,7 @@ Candidatos
                 echo "<tr><td class='text-center'>";
                 echo $user[$numcand]->name." ".$user[$numcand]->lastName."<br>";
                 echo $user[$numcand]->position."<br>";
-                echo $user[$numcand]->years."<br>";
+                echo (int)$user[$numcand]->years." Years of Experience<br>";
              echo '</td></tr></table>';
             }
            
