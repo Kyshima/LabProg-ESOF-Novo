@@ -27,8 +27,8 @@ class Controller extends BaseController
      */
     public function list()
     {
-        $user= User::where('type', 1)->paginate(12);
-        return view('user.list',['user'=>$user]);
+        $user= User::where('type', 0)->paginate(18);
+        return view('empresa.list',['user'=>$user]);
     }
 
     public function registerC()
