@@ -25,3 +25,4 @@ Route::get('/registerE', [Controller::class, 'registerE']);
 Auth::routes(['verify'=>true]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
+Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
