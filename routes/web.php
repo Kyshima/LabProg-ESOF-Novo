@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::get('/registerC', [Controller::class, 'registerC']);
 Route::get('/registerE', [Controller::class, 'registerE']);
 
 Auth::routes(['verify'=>true]);
+Route::post('/email',[HomeController::class, 'email'])->name('email');
+//Route::get('/email',[HomeController::class, 'email'])->name('email');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
 Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');

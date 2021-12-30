@@ -39,5 +39,4 @@ class Controller extends BaseController
     public function registerE(){
         return view('auth/registerEmpresa');
     }
-
 }

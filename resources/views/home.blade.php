@@ -27,6 +27,9 @@
 
                 <div class="card-body">
                   Welcome {{ Auth::user()->name }}!
+                    <form method="POST" action="{{ route('email') }}">
+
+                    </form>
                 </div>
             </div>
         </div>
