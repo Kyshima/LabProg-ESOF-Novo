@@ -50,27 +50,24 @@ class HomeController extends Controller
             $str=explode('|',$request->enviado);
             $send->compName = $str[0];
             $send->compEmail = $str[1];
+            $send->position = $str[2];
             $send->type = $user->type;
-
-            /*$user1=$user;
-            $user2=new User();
-            $user2->name=$request->userName;
-            $user2->email=$request->userEmail;*/
         }else{
-            /*$user2=$user;
-            $user1=new User();
-            $user1->name=$request->userName;
-            $user1->email=$request->userEmail;*/
+            $send = new \stdClass();
+            $send->compName = $user->name;
+            $send->compEmail = $user->email;
+            $str=explode('|',$request->enviado);
+            $send->userName = $str[0];
+            $send->userLastName = $str[1];
+            $send->userEmail = $str[2];
+            $send->position = $str[3];
+            $send->type = $user->type;
         }
         
 
 
 
-        /*$user=new User;
-        $user->email='antoine@uuu.pts';
-        $user->name='antonio';   */ 
-        //return new \App\Mail\connection(/*$user1,$user2,*/$send,$user->type);
-        Mail::send(new \App\Mail\connection(/*$user1,$user2,*/$send,$user->type));   
-        return view('home');
+        Mail::send(new \App\Mail\connection($send,$user->type));   
+        return redirect()->route('search');
     }
 }

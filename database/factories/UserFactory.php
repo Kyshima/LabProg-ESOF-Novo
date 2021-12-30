@@ -17,7 +17,7 @@ class UserFactory extends Factory
     {
         $tipo=rand(0,5);
         if($tipo!=0){//name,lastname,position,years,localization,default,img,email,password,token
-            $name=Arr::random(array('Ana','Bruno','Catarina','Diogo','Eliza','Feliciano','Gabriela','Henrique','Iasmin','Jerónimo','Leonor','Matheus','Natacha','Oscár','Patrícia','Rui','Sara','Tiago','Ursula','Valdemar'));
+            $name=Arr::random(array('Ana','Bruno','Catarina','Diogo','Eliza','Feliciano','Gabriela','Henrique','Iasmin','Jeronimo','Leonor','Matheus','Natacha','Oscar','Patricia','Rui','Sara','Tiago','Ursula','Valdemar'));
             $lastname=Arr::random(array('Silva','Santos','Ferreira','Pereira','Oliveira','Costa','Moreira','Gomes','Pinto','Marques','Cunha'));
             return [
                 'type' => 1,

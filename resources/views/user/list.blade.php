@@ -15,7 +15,10 @@ Candidatos
 <div class="table-responsive-md">
 <table class="table">
 <tr>
+<form method='POST' action="{{ route('email') }}">
+        @csrf
     <?php
+        use App\Models\User;
         for($numcand=0,$numcell=0;$numcand<count($user);$numcand++,$numcell++){
             if($numcell==4){
                 echo '</tr><tr>';
@@ -28,10 +31,12 @@ Candidatos
                 echo $user[$numcand]->name." ".$user[$numcand]->lastName."<br>";
                 echo $user[$numcand]->position."<br>";
                 echo (int)$user[$numcand]->years." Years of Experience<br>";
+                echo "<button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position."'>Email</button></td>";
              echo '</td></tr></table>';
             }
            
     ?>
+       </form>
 </tr>    
 </table>
 </div>

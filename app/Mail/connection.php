@@ -20,16 +20,8 @@ class connection extends Mailable
      */
     public function __construct($user/*,User $company*/,$n)
     {
-        if($n){
-            $this->user=$user;
-        } else {
-            //$this->u[1] = $company;
-            //$this->u[2] = $user;
-        }
-        /*$this->user=$user;*/
-        
+        $this->user=$user;
     }
-
     /**
      * Build the message.
      *
@@ -37,21 +29,15 @@ class connection extends Mailable
      */
     public function build()
     {
-        if($this->user->type==1) {
+        if($this->user->type == 1) {
             $this->subject('I\'m Interested In Your Position!');
             $this->to($this->user->compEmail);
+            return $this->view('mail.mailToEmp',['user'=>$this->user]);
         }
-        /*else {
-            //$this->title('We Want You!');
-            $this->subject('Mr/s '.$this->user2->name.' '.$this->user2->lastName.'<br>We would like to inform that we want you to work with us, if you are interested respond us.<br>From '.$this->user1->name);
-            //$this->from(address: $this->user1->email);
-            $this->to(address: $this->user2->email);
-        }*/
-        //return $this->view('mail',['user'=>$this]);
-
-        /*$this->subject('Subject');
-        $this->to($this->user1->email,$this->user1->name);*/
-
-        return $this->view('mail.mailToEmp',['user'=>$this->user]);
+        else{
+            $this->subject('We Would Like To Interview You');
+            $this->to($this->user->userEmail);
+            return $this->view('mail.mailToUser',['user'=>$this->user]);
+        }
     }
 }

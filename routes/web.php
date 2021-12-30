@@ -29,4 +29,4 @@ Route::post('/email',[HomeController::class, 'email'])->name('email');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
 Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
-Route::get('/search', [HomeController::class, 'search'])->middleware('search');
+Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('search');

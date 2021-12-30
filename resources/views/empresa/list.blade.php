@@ -26,18 +26,13 @@ Candidatos
     <?php
         use App\Models\User;
         for($numcand=0;$numcand<count($user);$numcand++){
-                /*$u = new \stdClass();
-                $u->name= $user[$numcand]->name;
-                $u->email= $user[$numcand]->email;*/
-
                 echo "<tr>";
                 echo "<td class='text-center'>".$user[$numcand]->name."</td>";
                 echo "<td class='text-center'>".$user[$numcand]->localization."</td>";
                 echo "<td class='text-center'>".(int)$user[$numcand]->years."</td>";
                 echo "<td class='text-center'>".$user[$numcand]->position."</td>";
 
-                //echo "<td class='text-center'><input type='hidden' name='name' value='".$user[$numcand]->name."'>";
-                echo "<td class='text-center'><button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->email."'>Email</button></td>";
+                echo "<td class='text-center'><button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->email."|".$user[$numcand]->position."'>Email</button></td>";
                 echo "</tr>";
             } 
     ?> 
