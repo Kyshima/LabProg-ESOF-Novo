@@ -14,8 +14,8 @@
                         <a href="{{url('/')}}" class="nav-link">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{url('/list')}}" class="nav-link">Pesquisar</a>
-                      </li> 
+                        <a href="{{url('/search')}}" class="nav-link">Pesquisar</a>
+                      </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -29,9 +29,20 @@
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('registerC') }}">{{ __('Register') }}</a>
-                                </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Register') }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/registerE') }}">
+                                        {{ __('Registar Company') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('/registerC') }}">
+                                        {{ __('Register Candidate') }}
+                                    </a>
+                                </div>
+                            </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
