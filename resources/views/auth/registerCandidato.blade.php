@@ -42,7 +42,17 @@
                             <label for="position_main" class="col-md-4 col-form-label text-md-end">{{ __('Position Area') }}</label>
 
                             <div class="col-md-6">
-                                <input id="position_main" type="text" class="form-control @error('position') is-invalid @enderror" name="position_main" value="{{ old('position_main') }}" required autocomplete="position_main" autofocus>
+                                <!--<input id="position_main" type="text" class="form-control @error('position') is-invalid @enderror" name="position_main" value="{{ old('position_main') }}" required autocomplete="position_main" autofocus>-->
+                                <select id="position_main" name="position_main" class="form-select form-control @error('position_main') is-invalid @enderror" value="{{ old('position_main') }}" autofocus>
+                                    <option value="Administrative">Administrative</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Culinary">Culinary</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Public Services">Public Services</option>
+                                    <option value="Services to the Public">Services to the Public</option>
+                                    <option value="Other">Other</option>
+                                </select>
 
                                 @error('position_main')
                                     <span class="invalid-feedback" role="alert">
@@ -71,7 +81,26 @@
 
                             <div class="col-md-6">
                                 <!--<input id="localization_main" type="text" class="form-control @error('localization_main') is-invalid @enderror" name="localization_main" value="{{ old('localization_main') }}" required autocomplete="localization_main" autofocus>-->
-                                
+                                <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" value="{{ old('localization_main') }}" autofocus>
+                                    <option value="Aveiro">Aveiro</option>
+                                    <option value="Beja">Beja</option>
+                                    <option value="Braga">Braga</option>
+                                    <option value="Bragança">Bragança</option>
+                                    <option value="Castelo Branco">Castelo Branco</option>
+                                    <option value="Coimbra">Coimbra</option>
+                                    <option value="Faro">Faro</option>
+                                    <option value="Guarda">Guarda</option>
+                                    <option value="Leiria">Leiria</option>
+                                    <option value="Lisboa">Lisboa</option>
+                                    <option value="Portalegre">Portalegre</option>
+                                    <option value="Porto">Porto</option>
+                                    <option value="Santarém">Santarém</option>
+                                    <option value="Setubal">Setubal</option>
+                                    <option value="Viana do Castelo">Viana do Castelo</option>
+                                    <option value="Vila Real">Vila Real</option>
+                                    <option value="Viseu">Viseu</option>
+                                    <option value="Évora">Évora</option>
+                                </select>
 
                                 @error('localization_main')
                                     <span class="invalid-feedback" role="alert">

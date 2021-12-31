@@ -19,7 +19,7 @@ class UserFactory extends Factory
         if($tipo!=0){//name,lastname,position,years,localization,default,img,email,password,token
             $name=Arr::random(array('Ana','Bruno','Catarina','Diogo','Eliza','Feliciano','Gabriela','Henrique','Iasmin','Jeronimo','Leonor','Matheus','Natacha','Oscar','Patricia','Rui','Sara','Tiago','Ursula','Valdemar'));
             $lastname=Arr::random(array('Silva','Santos','Ferreira','Pereira','Oliveira','Costa','Moreira','Gomes','Pinto','Marques','Cunha'));
-            $position=Arr::random(array('Hotelaria','Atendimento ao Publico','Informatica','Design','Administrativo','Serviços Publicos','Ensino','Outros'));
+            $position=Arr::random(array('Administrative','Computer Science','Culinary','Design','Education','Public Services','Services to the Public','Other'));
             return [
                 'type' => 1,
                 'name' => $name,
