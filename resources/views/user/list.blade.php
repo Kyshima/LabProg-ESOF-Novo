@@ -29,8 +29,9 @@ Candidatos
                 echo "<tr><td><img src='img/".$user[$numcand]->img."' alt='profilepic' height='200' width='200'></td></tr>";
                 echo "<tr><td class='text-center'>";
                 echo $user[$numcand]->name." ".$user[$numcand]->lastName."<br>";
-                echo $user[$numcand]->position."<br>";
+                echo $user[$numcand]->position_sec."<br>";
                 echo (int)$user[$numcand]->years." Years of Experience<br>";
+                echo $user[$numcand]->localization_main."<br>";
                 echo "<button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position."'>Email</button></td>";
              echo '</td></tr></table>';
             }

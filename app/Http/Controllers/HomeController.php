@@ -34,10 +34,24 @@ class HomeController extends Controller
         return view('empresaHome');
     }
 
+    public function edit(){
+        $user = Auth::user();
+        if($user->type == 1){
+            return view('user.edit', ['user' => $user]);
+        }
+        return view('empresa.edit', ['user' => $user]);
+    }
+
+    public function update(Request $request){
+        $user = Auth::user();
+        //$user->update($request->all());
+        return redirect('/home');
+    }
+
     public function listC()
     {
         $v = Auth::user();
-        $user= User::where('type', 1)->where('position', $v->position)->paginate(12);
+        $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
         return view('user.list',['user'=>$user]);
     }
 
@@ -65,9 +79,6 @@ class HomeController extends Controller
             $send->type = $user->type;
         }
         
-
-
-
         Mail::send(new \App\Mail\connection($send,$user->type));   
         return redirect()->route('search');
     }

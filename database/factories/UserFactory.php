@@ -19,13 +19,16 @@ class UserFactory extends Factory
         if($tipo!=0){//name,lastname,position,years,localization,default,img,email,password,token
             $name=Arr::random(array('Ana','Bruno','Catarina','Diogo','Eliza','Feliciano','Gabriela','Henrique','Iasmin','Jeronimo','Leonor','Matheus','Natacha','Oscar','Patricia','Rui','Sara','Tiago','Ursula','Valdemar'));
             $lastname=Arr::random(array('Silva','Santos','Ferreira','Pereira','Oliveira','Costa','Moreira','Gomes','Pinto','Marques','Cunha'));
+            $position=Arr::random(array('Hotelaria','Atendimento ao Publico','Informatica','Design','Administrativo','Serviços Publicos','Ensino','Outros'));
             return [
                 'type' => 1,
                 'name' => $name,
                 'lastName' => $lastname,
-                'position' => Arr::random(array('Designer','Cozinheiro','Audio Producer','Produtor Audio-Visual','Engenheiro Software')),
+                'position_main' => $position,
+                'position_sec' => $position." ".Str::random(5),
                 'years' => rand(0,45),
-                'localization' =>Arr::random(array('Viana do Castelo','Braga','Porto','Vila Real','Bragança','Aveiro','Viseu','Guarda','Coimbra','Castelo Branco','Leiria','Santarém','Lisboa','Portalegre','Évora','Setubal','Beja','Faro')),
+                'localization_main' =>Arr::random(array('Viana do Castelo','Braga','Porto','Vila Real','Bragança','Aveiro','Viseu','Guarda','Coimbra','Castelo Branco','Leiria','Santarém','Lisboa','Portalegre','Évora','Setubal','Beja','Faro')),
+                'localization_sec' => $this->faker->city,
                 'email' => $name.Arr::random(array('.','-','_','')).$lastname.rand(1940,2010).'@'.Str::random(5).'.com',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password             
@@ -34,12 +37,15 @@ class UserFactory extends Factory
                 'remember_token' => Str::random(10),
             ];
         }else{//name,position,years,localization,email,password,token
+            $position=Arr::random(array('Hotelaria','Atendimento ao Publico','Informatica','Design','Administrativo','Serviços Publicos','Ensino','Outros'));
             return [
                 'type' => 0,
                 'name' => $this->faker->company(),
-                'position' => Arr::random(array('Designer','Cozinheiro','Audio Producer','Produtor Audio-Visual','Engenheiro Software')),
+                'position_main' => $position,
+                'position_sec' => $position." ".Str::random(5),
                 'years' => rand(0,10),
-                'localization' =>Arr::random(array('Viana do Castelo','Braga','Porto','Vila Real','Bragança','Aveiro','Viseu','Guarda','Coimbra','Castelo Branco','Leiria','Santarém','Lisboa','Portalegre','Évora','Setubal','Beja','Faro')),
+                'localization_main' =>Arr::random(array('Viana do Castelo','Braga','Porto','Vila Real','Bragança','Aveiro','Viseu','Guarda','Coimbra','Castelo Branco','Leiria','Santarém','Lisboa','Portalegre','Évora','Setubal','Beja','Faro')),
+                'localization_sec' => $this->faker->city,
                 'email' => $this->faker->unique()->safeEmail(),
                 'email_verified_at' => now(),
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password             

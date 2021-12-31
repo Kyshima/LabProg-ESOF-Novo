@@ -29,7 +29,7 @@ class Controller extends BaseController
     public function list()
     {   
         $v = Auth::user();
-        $user= User::where('type', 0)->where('position', $v->position)->paginate(18);
+        $user= User::where('type', 0)->where('position_main', $v->position_main)->paginate(18);
         return view('empresa.list',['user'=>$user]);
     }
 

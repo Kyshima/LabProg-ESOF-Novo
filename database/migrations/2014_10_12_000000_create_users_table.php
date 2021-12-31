@@ -18,9 +18,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->boolean('type')->default(1);
             $table->string('name');
-            $table->string('position');
+            $table->string('position_main');
+            $table->string('position_sec');
             $table->decimal('years');
-            $table->string('localization')->nullable();
+            $table->string('localization_main');
+            $table->string('localization_sec')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
