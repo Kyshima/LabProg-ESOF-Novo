@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class Controller extends BaseController
@@ -26,8 +27,9 @@ class Controller extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function list()
-    {
-        $user= User::where('type', 0)->paginate(18);
+    {   
+        $v = Auth::user();
+        $user= User::where('type', 0)->where('position', $v->position)->paginate(18);
         return view('empresa.list',['user'=>$user]);
     }
 

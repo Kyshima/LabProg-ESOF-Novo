@@ -36,7 +36,8 @@ class HomeController extends Controller
 
     public function listC()
     {
-        $user= User::where('type', 1)->paginate(12);
+        $v = Auth::user();
+        $user= User::where('type', 1)->where('position', $v->position)->paginate(12);
         return view('user.list',['user'=>$user]);
     }
 
