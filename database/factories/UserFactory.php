@@ -37,7 +37,7 @@ class UserFactory extends Factory
                 'remember_token' => Str::random(10),
             ];
         }else{//name,position,years,localization,email,password,token
-            $position=Arr::random(array('Hotelaria','Atendimento ao Publico','Informatica','Design','Administrativo','Serviços Publicos','Ensino','Outros'));
+            $position=Arr::random(array('Administrative','Computer Science','Culinary','Design','Education','Public Services','Services to the Public','Other'));
             return [
                 'type' => 0,
                 'name' => $this->faker->company(),

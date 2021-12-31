@@ -51,6 +51,18 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('edit') }}">
+                                        {{ __('Edit your Information') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('editPhoto') }}">
+                                        {{ __('Edit your Photo') }}
+                                    </a>
+                                
+                                    <a class="dropdown-item" href="{{ route('delete') }}">
+                                        {{ __('Delete Profile') }}
+                                    </a>
+                                    
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
