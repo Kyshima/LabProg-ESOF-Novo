@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/', [Controller::class, 'index'])->name('first');
 Route::get('/teste', [Controller::class, 'teste']);
 Route::get('/list', [Controller::class, 'list']);
 
@@ -35,7 +35,9 @@ Route::get('/search', [HomeController::class, 'search'])->name('search')->middle
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
+
 Route::get('/delete', [HomeController::class, 'delete'])->name('delete');
+Route::post('/erase', [HomeController::class, 'erase'])->name('erase');
 
 Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);

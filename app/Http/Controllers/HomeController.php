@@ -31,7 +31,7 @@ class HomeController extends Controller
 
     public function empresaIndex()
     {
-        return view('empresaHome');
+        return view('home');
     }
 
     public function edit(){
@@ -106,4 +106,17 @@ class HomeController extends Controller
 
         return redirect()->route('home')->with('status', 'Image Has been updated!');
     }
+
+    public function delete(){
+        $user = Auth::user();
+        return view('delete', ['user' => $user]);
+    }
+
+    public function erase(){
+        $user = User::find(Auth::user()->id);
+        Auth::logout();
+        $user->delete();
+        return redirect()->route('first')->with('global', 'Your account has been deleted!');;
+    }
+
 }
