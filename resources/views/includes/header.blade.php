@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container-fluid" >
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}"> <!-- Comentarios em Laravel sao com as chavetas e tracos -->
                   <img src="{{URL::asset('/img/EternoCandidato.png')}}" alt="logo" height="50" width="50">
                 </a>
@@ -54,9 +54,13 @@
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('editPhoto') }}">
-                                        {{ __('Edit your Photo') }}
-                                    </a>
+                                    <?php
+                                        $user = Auth::user();
+                                        if($user->type == 1){
+                                            echo "<a class=\"dropdown-item\" href=\"{{ route('editPhoto') }}\">Edit Your Photo</a>";
+                                        }
+                                    ?>
+                                
 
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         {{ __('Edit your Credentials') }}
@@ -79,7 +83,6 @@
                             </li>
                         @endguest
                     </ul>
-                </div>   
-            </div>   
+                </div>
+            </div>
         </nav>
-    
