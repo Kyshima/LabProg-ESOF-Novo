@@ -1,12 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.lists')
 
 @section('title')
 Candidatos
 @endsection
 
 @section('content')
-
-@if ($message = Session::get('success'))
+<div class="row">
+  <div class="col-sm-2">
+    EXEMPLO
+  </div>
+  <div class="col-sm-8">
+  @if ($message = Session::get('success'))
 <div class="alert alert-success">
     <p>{{ $message }}</p>
 </div>
@@ -47,4 +51,9 @@ Candidatos
     @endforelse
 
 {!! $user->links('pagination::bootstrap-4')!!}
+  </div>
+  <div class="col-sm-2">
+    EXEMPLO
+  </div>
+</div>
 @endsection
