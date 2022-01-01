@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid" >
                 <a class="navbar-brand" href="{{ url('/') }}"> <!-- Comentarios em Laravel sao com as chavetas e tracos -->
                   <img src="{{URL::asset('/img/EternoCandidato.png')}}" alt="logo" height="50" width="50">
                 </a>
@@ -79,6 +79,7 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
-            </div>
+                </div>   
+            </div>   
         </nav>
+    
