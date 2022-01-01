@@ -56,13 +56,13 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 
-            'position_main' => [],
-            'position_sec' => [],
-            'localization_main' => [],
-            'localization_sec' => [],
-            'years' => [],
+            'position_main' => ['required','regex:/^(Administrative|Computer Science|Culinary|Design|Education|Public Services|Services to the Public|Other)$/'],
+            'position_sec' => ['required','max:50'],
+            'localization_main' => ['required','regex:/^(Viana do Castelo|Braga|Porto|Vila Real|Bragança|Aveiro|Viseu|Guarda|Coimbra|Castelo Branco|Leiria|Santarém|Lisboa|Portalegre|Évora|Setubal|Beja|Faro)$/'],
+            'localization_sec' => ['required','max:50'],
+            'years' => ['required','min:0','max:45'],
 
-            'type' => [],
+            'type' => ['required','regex:/^[0-1]$/'],
         ]);
     }
     
