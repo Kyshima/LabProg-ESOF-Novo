@@ -25,8 +25,17 @@ Route::get('/registerE', [Controller::class, 'registerE']);
 
 Auth::routes(['verify'=>true]);
 Route::post('/email',[HomeController::class, 'email'])->name('email');
-//Route::get('/email',[HomeController::class, 'email'])->name('email');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
+
 Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
+
 Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('search');
+
+Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
+Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
+Route::get('/delete', [HomeController::class, 'delete'])->name('delete');
+
+Route::post('/update/{user}', [HomeController::class, 'update']);
+Route::post('/save', [HomeController::class, 'store']);

@@ -48,6 +48,11 @@ class HomeController extends Controller
         return redirect('/home');
     }
 
+    public function editPhoto(){
+            $user = Auth::user();
+            return view('user.upload', ['user' => $user]);
+    }
+
     public function listC()
     {
         $v = Auth::user();
@@ -81,5 +86,24 @@ class HomeController extends Controller
         
         Mail::send(new \App\Mail\connection($send,$user->type));   
         return redirect()->route('search');
+    }
+
+
+    public function store(Request $request)
+    {
+        $user = Auth::user()->id;
+        $request->validate([
+            'image' => 'required|image|max:5096',]);
+        
+        
+        $imageName = time().'_'.$user.'.'.$request->image->extension();
+
+        $request->file('image')->store('public/images');
+
+        $user = Auth::user();
+        $user->img = $request->file('image')->hashName();
+        $user->save();
+
+        return redirect()->route('home')->with('status', 'Image Has been updated!');
     }
 }

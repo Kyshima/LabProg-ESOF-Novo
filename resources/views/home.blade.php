@@ -27,10 +27,15 @@
 
                 <div class="card-body">
                   Welcome {{ Auth::user()->name }}!
-                    <form method="POST" action="{{ route('email') }}">
-
-                    </form>
                 </div>
+                
+                  @if($message = Session::get('status'))
+                  <div class="card-body">
+                  <div class= "alert alert-success">
+                    <p>{{ $message }}</p>
+                  </div>
+                  </div>
+                  @endif
             </div>
         </div>
     </div>
