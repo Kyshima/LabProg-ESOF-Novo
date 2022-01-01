@@ -37,5 +37,5 @@ Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
 Route::get('/delete', [HomeController::class, 'delete'])->name('delete');
 
-Route::post('/update/{user}', [HomeController::class, 'update']);
+Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);

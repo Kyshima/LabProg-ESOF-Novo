@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/update/'.$user) }}">
+                    <form method="POST" action="{{ url('/update') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -43,15 +43,15 @@
 
                             <div class="col-md-6">
                                 <!--<input id="position_main" type="text" class="form-control @error('position') is-invalid @enderror" name="position_main" value="{{ old('position_main') }}" required autocomplete="position_main" autofocus>-->
-                                <select id="position_main" name="position_main" class="form-select form-control @error('position_main') is-invalid @enderror" value="{{ $user->position_main }}" autofocus>
-                                    <option value="Administrative">Administrative</option>
-                                    <option value="Computer Science">Computer Science</option>
-                                    <option value="Culinary">Culinary</option>
-                                    <option value="Design">Design</option>
-                                    <option value="Education">Education</option>
-                                    <option value="Public Services">Public Services</option>
-                                    <option value="Services to the Public">Services to the Public</option>
-                                    <option value="Other">Other</option>
+                                <select id="position_main" name="position_main" class="form-select form-control @error('position_main') is-invalid @enderror" autofocus>
+                                    <option {{($user->position_main) == 'Administrative' ? 'selected' : ''}}  value="Administrative">Administrative</option>
+                                    <option {{($user->position_main) == 'Computer Science' ? 'selected' : ''}}  value="Computer Science">Computer Science</option>
+                                    <option {{($user->position_main) == 'Culinary' ? 'selected' : ''}}  value="Culinary">Culinary</option>
+                                    <option {{($user->position_main) == 'Design' ? 'selected' : ''}}  value="Design">Design</option>
+                                    <option {{($user->position_main) == 'Education' ? 'selected' : ''}}  value="Education">Education</option>
+                                    <option {{($user->position_main) == 'Public Services' ? 'selected' : ''}}  value="Public Services">Public Services</option>
+                                    <option {{($user->position_main) == 'Services to the Public' ? 'selected' : ''}}  value="Services to the Public">Services to the Public</option>
+                                    <option {{($user->position_main) == 'Other' ? 'selected' : ''}}  value="Other">Other</option>
                                 </select>
 
                                 @error('position_main')
@@ -81,25 +81,25 @@
 
                             <div class="col-md-6">
                                 <!--<input id="localization_main" type="text" class="form-control @error('localization_main') is-invalid @enderror" name="localization_main" value="{{ old('localization_main') }}" required autocomplete="localization_main" autofocus>-->
-                                <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" value="{{ $user->localization_main }}" autofocus>
-                                    <option value="Aveiro">Aveiro</option>
-                                    <option value="Beja">Beja</option>
-                                    <option value="Braga">Braga</option>
-                                    <option value="Bragança">Bragança</option>
-                                    <option value="Castelo Branco">Castelo Branco</option>
-                                    <option value="Coimbra">Coimbra</option>
-                                    <option value="Faro">Faro</option>
-                                    <option value="Guarda">Guarda</option>
-                                    <option value="Leiria">Leiria</option>
-                                    <option value="Lisboa">Lisboa</option>
-                                    <option value="Portalegre">Portalegre</option>
-                                    <option value="Porto">Porto</option>
-                                    <option value="Santarém">Santarém</option>
-                                    <option value="Setubal">Setubal</option>
-                                    <option value="Viana do Castelo">Viana do Castelo</option>
-                                    <option value="Vila Real">Vila Real</option>
-                                    <option value="Viseu">Viseu</option>
-                                    <option value="Évora">Évora</option>
+                                <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
+                                    <option {{($user->localization_main) == 'Aveiro' ? 'selected' : ''}} value="Aveiro">Aveiro</option>
+                                    <option {{($user->localization_main) == 'Beja' ? 'selected' : ''}} value="Beja">Beja</option>
+                                    <option {{($user->localization_main) == 'Braga' ? 'selected' : ''}} value="Braga">Braga</option>
+                                    <option {{($user->localization_main) == 'Bragança' ? 'selected' : ''}} value="Bragança">Bragança</option>
+                                    <option {{($user->localization_main) == 'Castelo Branco' ? 'selected' : ''}} value="Castelo Branco">Castelo Branco</option>
+                                    <option {{($user->localization_main) == 'Coimbra' ? 'selected' : ''}} value="Coimbra">Coimbra</option>
+                                    <option {{($user->localization_main) == 'Faro' ? 'selected' : ''}} value="Faro">Faro</option>
+                                    <option {{($user->localization_main) == 'Guarda' ? 'selected' : ''}} value="Guarda">Guarda</option>
+                                    <option {{($user->localization_main) == 'Leiria' ? 'selected' : ''}} value="Leiria">Leiria</option>
+                                    <option {{($user->localization_main) == 'Lisboa' ? 'selected' : ''}} value="Lisboa">Lisboa</option>
+                                    <option {{($user->localization_main) == 'Portalegre' ? 'selected' : ''}} value="Portalegre">Portalegre</option>
+                                    <option {{($user->localization_main) == 'Porto' ? 'selected' : ''}} value="Porto">Porto</option>
+                                    <option {{($user->localization_main) == 'Santarém' ? 'selected' : ''}} value="Santarém">Santarém</option>
+                                    <option {{($user->localization_main) == 'Setubal' ? 'selected' : ''}} value="Setubal">Setubal</option>
+                                    <option {{($user->localization_main) == 'Viana do Castelo' ? 'selected' : ''}} value="Viana do Castelo">Viana do Castelo</option>
+                                    <option {{($user->localization_main) == 'Vila Real' ? 'selected' : ''}} value="Vila Real">Vila Real</option>
+                                    <option {{($user->localization_main) == 'Viseu' ? 'selected' : ''}} value="Viseu">Viseu</option>
+                                    <option {{($user->localization_main) == 'Évora' ? 'selected' : ''}} value="Évora">Évora</option>
                                 </select>
 
                                 @error('localization_main')

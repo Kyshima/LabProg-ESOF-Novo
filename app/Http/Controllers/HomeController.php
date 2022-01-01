@@ -45,7 +45,7 @@ class HomeController extends Controller
     public function update(Request $request){
         $user = Auth::user();
         $user->update($request->all());
-        return redirect('/home');
+        return redirect()->route('home')->with('status', 'Your profile has been updated!');
     }
 
     public function editPhoto(){

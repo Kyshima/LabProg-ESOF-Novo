@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('position_sec');
             $table->decimal('years');
             $table->string('localization_main');
-            $table->string('localization_sec')->nullable();
+            $table->string('localization_sec');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

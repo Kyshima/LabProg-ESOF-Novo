@@ -11,7 +11,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                       <li class="nav-item">
-                        <a href="{{url('/')}}" class="nav-link">Home</a>
+                        <a href="{{route('home')}}" class="nav-link">Home</a>
                       </li>
                       <li class="nav-item">
                         <a href="{{url('/search')}}" class="nav-link">Pesquisar</a>
@@ -54,11 +54,14 @@
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
-
                                     <a class="dropdown-item" href="{{ route('editPhoto') }}">
                                         {{ __('Edit your Photo') }}
                                     </a>
-                                
+
+                                    <a class="dropdown-item" href="{{ route('password.request') }}">
+                                        {{ __('Edit your Credentials') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('delete') }}">
                                         {{ __('Delete Profile') }}
                                     </a>
