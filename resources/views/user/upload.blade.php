@@ -9,13 +9,13 @@
 
                 <div class="card-body">
                     <div class="col-md-6">
-                        <form method="POST" enctype="multipart/form-data" id="img" action="{{ route('upload.picture') }}">
+                        <form method="POST" enctype="multipart/form-data" id="img" action="{{ url('/save') }}">
                         @csrf
                         <div class="row">
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="file" name="image" placeholder="Choose image" id="img">
+                                    <input type="file" accept=".jpg,.png.,.jpeg,.webp," class="form-control-file" name="image" placeholder="Choose image" id="img">
                                     @error('img')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                     @enderror

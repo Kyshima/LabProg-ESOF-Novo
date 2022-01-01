@@ -38,4 +38,4 @@ Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto'
 Route::get('/delete', [HomeController::class, 'delete'])->name('delete');
 
 Route::post('/update/{user}', [HomeController::class, 'update']);
-Route::post('/save', [HomeController::class, 'store'])->name('upload.picture');
+Route::post('/save', [HomeController::class, 'store']);

@@ -91,17 +91,19 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        $user = Auth::user()->id;
         $request->validate([
-            'img' => 'required|image|mimes:jpg,png,jpeg|max:2048',]);
+            'image' => 'required|image|max:5096',]);
+        
+        
+        $imageName = time().'_'.$user.'.'.$request->image->extension();
 
-        $imageName = time().'.'.$request->img->extension();
-        $request->img->move(public_path('images'), $imageName);
+        $request->file('image')->store('public/images');
 
         $user = Auth::user();
-        $user->img = $request->file('img')->hashName();
+        $user->img = $request->file('image')->hashName();
         $user->save();
 
-        return redirect()->back()->with('status', 'Image Has been uploaded');
+        return redirect()->route('home')->with('status', 'Image Has been updated!');
     }
 }
