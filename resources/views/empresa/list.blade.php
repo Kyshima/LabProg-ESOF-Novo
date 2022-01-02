@@ -98,7 +98,7 @@ Candidatos
                 echo "<td class='text-center'>".(int)$user[$numcand]->years."</td>";
                 echo "<td class='text-center'>".$user[$numcand]->position_sec."</td>";
 
-                echo "<td class='text-center'><button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->email."|".$user[$numcand]->position."'>Email</button></td>";
+                echo "<td class='text-center'><button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->email."|".$user[$numcand]->position_main."|".$user[$numcand]->position_sec."'>Email</button></td>";
                 echo "</tr>";
             } 
     ?> 

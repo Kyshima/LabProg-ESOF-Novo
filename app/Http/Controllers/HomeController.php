@@ -101,7 +101,8 @@ class HomeController extends Controller
             $str=explode('|',$request->enviado);
             $send->compName = $str[0];
             $send->compEmail = $str[1];
-            $send->position = $str[2];
+            $send->position_main = $str[2];
+            $send->position_sec = $str[3];
             $send->type = $user->type;
         }else{
             $send = new \stdClass();
@@ -111,7 +112,8 @@ class HomeController extends Controller
             $send->userName = $str[0];
             $send->userLastName = $str[1];
             $send->userEmail = $str[2];
-            $send->position = $str[3];
+            $send->position_main = $str[3];
+            $send->position_sec = $str[4];
             $send->type = $user->type;
         }
         

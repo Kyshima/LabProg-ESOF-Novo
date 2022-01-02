@@ -95,7 +95,7 @@ Candidatos
                     echo $user[$numcand]->position_sec."<br>";
                     echo (int)$user[$numcand]->years." Years of Experience<br>";
                     echo $user[$numcand]->localization_main."<br>";
-                    echo "<button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position."'>Email</button></td>";
+                    echo "<button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position_main."|".$user[$numcand]->position_sec."'>Email</button></td>";
                 echo '</td></tr></table>';
                 }
             
