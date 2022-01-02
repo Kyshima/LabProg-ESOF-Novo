@@ -60,7 +60,6 @@ class HomeController extends Controller
         if($request->has('localization_main')){
             if(($request->has('localization_sec')))  $data->localization_sec = null;
             $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->paginate(12);
-            //dd($user);
         }
         else if($request->has('localization_sec')){
             if(($request->has('localization_main')))  $data->localization_main = null;

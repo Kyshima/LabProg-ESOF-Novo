@@ -57,7 +57,7 @@
                                     <?php
                                         $user = Auth::user();
                                         if($user->type == 1){
-                                            echo "<a class=\"dropdown-item\" href=\"{{ route('editPhoto') }}\">Edit Your Photo</a>";
+                                            echo "<a class='dropdown-item' href="."/editPhoto".">Edit Your Photo</a>";
                                         }
                                     ?>
                                 

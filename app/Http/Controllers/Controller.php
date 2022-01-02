@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class Controller extends BaseController
@@ -26,11 +27,23 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
-    {   
+    public function list(Request $request)
+    {
         $v = Auth::user();
-        $user= User::where('type', 0)->where('position_main', $v->position_main)->paginate(18);
-        return view('empresa.list',['user'=>$user]);
+        $data = $request->all();
+        if($request->has('localization_main')){
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->paginate(12);
+        }
+        else if($request->has('localization_sec')){
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->paginate(12);
+        }
+        else{
+            $user= User::where('type', 0)->where('position_main', $v->position_main)->paginate(12);
+            $data = $request->all();
+        }
+        return view('empresa.list',['user'=>$user, 'data'=> $data]);
     }
 
     public function registerC()

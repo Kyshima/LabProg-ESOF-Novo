@@ -6,9 +6,6 @@ Candidatos
 
 @section('content')
 
-<?php
-dd($data);
-?>
 <div class="row">
 
   <div class="col-sm-2">
@@ -34,30 +31,27 @@ dd($data);
     </form>
 
     <br>
-    
+
     <p>Localization:</p>
     <form method="GET" action="{{ route('search') }}">
     <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
-        <option value="Aveiro">Aveiro</option>
-        <option value="Beja">Beja</option>
-        <option value="Braga">Braga</option>
-        <option value="Bragança">Bragança</option>
-        <option value="Castelo Branco">Castelo Branco</option>
-        <option value="Coimbra">Coimbra</option>
-        <option value="Faro">Faro</option>
-        <option value="Guarda">Guarda</option>
-        <option value="Leiria">Leiria</option>
-        <option value="Lisboa">Lisboa</option>
-        <option value="Portalegre">Portalegre</option>
-        <option value="Porto">Porto</option>
-        <option value="Santarém">Santarém</option>
-        <option value="Setubal">Setubal</option>
-        <option value="Viana do Castelo">Viana do Castelo</option>
-        <option value="Vila Real">Vila Real</option>
-        <option value="Viseu">Viseu</option>
-        <option value="Évora">Évora</option>
+        <?php
+        $dist=array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu');
+        if(isset($data['localization_main'])) {$tt = $data['localization_main'];}
+        else {$tt = '';}
+
+        foreach($dist as $d){
+            if($d != $tt) {
+            echo "<option value='".$d."'>".$d."</option>";
+            }else{
+                echo "<option selected value='".$d."'>".$d."</option>";
+            }
+        }
+        ?>
     </select>
+
     <br>
+
     <div class="text-center">
     <button type="submit" class="btn btn-primary">
             {{ __('Search') }}

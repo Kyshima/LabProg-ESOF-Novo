@@ -17,7 +17,7 @@ class UserFactory extends Factory
     {
         $tipo=rand(0,5);
         $position=Arr::random(array('Administrative','Computer Science','Culinary','Design','Education','Public Services','Services to the Public','Other'));
-        $loc=Arr::random(array('Viana do Castelo','Braga','Porto','Vila Real','Bragança','Aveiro','Viseu','Guarda','Coimbra','Castelo Branco','Leiria','Santarém','Lisboa','Portalegre','Évora','Setubal','Beja','Faro'));
+        $loc=Arr::random(array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu'));
         switch($loc){
             case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $loc_sec='Norte'; break;
             case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $loc_sec='Centro'; break;
