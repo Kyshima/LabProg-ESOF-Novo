@@ -57,6 +57,23 @@ class HomeController extends Controller
     {
         $v = Auth::user();
         $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
+        $data->request->all();
+        return view('user.list',['user'=>$user]);
+    }
+
+    public function filter(Request $request)
+    {
+        $v = Auth::user();
+        $user= User::where('type', 1)->where('localization_main', $request->localization_main)->where('position_main', $v->position_main)->paginate(12);
+        //dd($user);
+        return view('user.list',['user'=>$user]);
+    }
+
+    public function filterRegion(Request $request)
+    {
+        $v = Auth::user();
+        $user= User::where('type', 1)->where('localization_sec', $request->localization_sec)->where('position_main', $v->position_main)->paginate(12);
+        //dd($user);
         return view('user.list',['user'=>$user]);
     }
 

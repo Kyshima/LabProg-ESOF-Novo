@@ -12,16 +12,14 @@ Candidatos
 
   <h4>SEARCH:</h4>
 
-  <form method="POST" action="{{ route('search') }}">
+  <form method="GET" action="{{ route('filterRegion') }}">
     <br> Region:
-    
-    
     <div class="row">
     <div class="col">
         <ul style="list-style-type: none;">
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="optradio">Norte</div></li>
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="optradio">Centro</div></li>
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="optradio">Sul</div></li>
+            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Norte">Norte</div></li>
+            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Centro">Centro</div></li>
+            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Sul">Sul</div></li>
         </ul>  
     </div>
     <div class="col">
@@ -35,7 +33,7 @@ Candidatos
     <br>
     
     <p>Localization:</p>
-    <form method="POST" action="{{ route('search') }}">
+    <form method="GET" action="{{ route('filterMain') }}">
     <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" value="{{ old('localization_main') }}" autofocus>
                                     <option value="Aveiro">Aveiro</option>
                                     <option value="Beja">Beja</option>
@@ -63,6 +61,14 @@ Candidatos
     </button>
     </div>
   </form>
+  <br>
+  <form action="{{route('search')}}">
+  <div class="text-center">
+    <button type="submit" class="btn btn-secondary">
+            {{ __('Reset') }}
+    </button>
+    </div>
+    </form>
   </div>
 
 

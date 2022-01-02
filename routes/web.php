@@ -32,6 +32,8 @@ Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empr
 Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
 
 Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('search');
+Route::get('/searchF', [HomeController::class, 'filter'])->name('filterMain')->middleware('isEmpresa');
+Route::get('/searchFR', [HomeController::class, 'filterRegion'])->name('filterRegion')->middleware('isEmpresa');
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
