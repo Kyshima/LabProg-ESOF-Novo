@@ -60,14 +60,14 @@ class HomeController extends Controller
         $data = $request->all();
         if($request->has('localization_main')){
             if(($request->has('localization_sec')))  $data->localization_sec = null;
-            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->paginate(12);
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
         }
         else if($request->has('localization_sec')){
             if(($request->has('localization_main')))  $data->localization_main = null;
-            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->paginate(12);
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
         }
         else{
-            $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
+            $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
             $data = $request->all();
         }
         return view('user.list',['user'=>$user, 'data'=> $data]);
@@ -77,14 +77,14 @@ class HomeController extends Controller
             $data = $request->all();
         if($request->has('localization_main')){
             if(($request->has('localization_sec')))  $data->localization_sec = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->paginate(12);
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $v->years)->paginate(12);
         }
         else if($request->has('localization_sec')){
             if(($request->has('localization_main')))  $data->localization_main = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->paginate(12);
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $v->years)->paginate(12);
         }
         else{
-            $user= User::where('type', 0)->where('position_main', $v->position_main)->paginate(12);
+            $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
             $data = $request->all();
         }
         return view('empresa.list',['user'=>$user, 'data'=> $data]);
