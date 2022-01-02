@@ -64,7 +64,7 @@
                   
                   echo "<tr>";
                   echo "<td class='text-center'>".$user->name."</td>";
-                  echo "<td class='text-center'>".$user->localization_sec."</td>";
+                  echo "<td class='text-center'>".$user->localization_main."</td>";
                   echo "<td class='text-center'>".(int)$user->years."</td>";
                   echo "<td class='text-center'>".$user->position_sec."</td>";
                   echo "</tr>";

@@ -16,7 +16,7 @@ Candidatos
 
   <h4>SEARCH:</h4>
 
-  <form method="GET" action="{{ route('list') }}">
+  <form method="GET" action="{{ route('search') }}">
     <br> Region:
     <div class="row">
     <div class="col">
@@ -37,7 +37,7 @@ Candidatos
     <br>
     
     <p>Localization:</p>
-    <form method="GET" action="{{ route('list') }}">
+    <form method="GET" action="{{ route('search') }}">
     <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
         <?php
             $dist=array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu');
@@ -61,7 +61,7 @@ Candidatos
     </div>
   </form>
   <br>
-  <form action="{{route('list')}}">
+  <form action="{{route('search')}}">
   <div class="text-center">
     <button type="submit" class="btn btn-secondary">
             {{ __('Reset') }}
