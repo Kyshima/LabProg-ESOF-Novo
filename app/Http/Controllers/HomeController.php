@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -123,7 +124,7 @@ class HomeController extends Controller
         }
         
         Mail::send(new \App\Mail\connection($send,$user->type));   
-        return redirect()->route('search');
+        return redirect()->route('search')->with('email', 'Email has been sent!');
     }
 
 
@@ -157,4 +158,30 @@ class HomeController extends Controller
         return redirect()->route('first')->with('global', 'Your account has been deleted!');;
     }
 
+    public function generatePDF(Request $request){
+        $send = new \stdClass();
+        $str=explode('|',$request->enviado);
+        $send->userName = $str[0];
+        $send->userLastName = $str[1];
+        $send->userEmail = $str[2];
+        $send->position_main = $str[3];
+        $send->position_sec = $str[4];
+        $send->localization_main = $str[5];
+        $send->years = $str[6];
+
+        $data = [
+            'title' => 'Curriculum Vitae',
+            'date' => date('d/M/Y'),
+            'name' => $str[0],
+            'lastName' => $str[1],
+            'email' => $str[2],
+            'position_main' => $str[3],
+            'position_sec' => $str[4],
+            'localization_main' => $str[5],
+            'years' => (int) $str[6],
+        ];
+
+        $pdf = PDF::loadView('myPDF', $data);
+        return $pdf->download($str[0].'_'.$str[1].'_'.date('d/m/y').'.pdf');
+    }
 }

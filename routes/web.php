@@ -37,3 +37,5 @@ Route::post('/erase', [HomeController::class, 'erase'])->name('erase');
 
 Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);
+
+Route::post('/generate-pdf', [HomeController::class, 'generatePDF']);

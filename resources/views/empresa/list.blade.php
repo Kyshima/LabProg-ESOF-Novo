@@ -5,11 +5,6 @@ Candidatos
 @endsection
 
 @section('content')
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
-@endif
 
 <div class="row">
   <div class="col-sm-2">
@@ -72,7 +67,7 @@ Candidatos
 
 
   <div class="col-sm-8">
-    @if ($message = Session::get('success'))
+    @if ($message = Session::get('email'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
