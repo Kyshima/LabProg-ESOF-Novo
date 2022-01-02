@@ -6,13 +6,16 @@ Candidatos
 
 @section('content')
 
+<?php
+dd($data);
+?>
 <div class="row">
 
   <div class="col-sm-2">
 
   <h4>SEARCH:</h4>
 
-  <form method="GET" action="{{ route('filterRegion') }}">
+  <form method="GET" action="{{ route('search') }}">
     <br> Region:
     <div class="row">
     <div class="col">
@@ -33,26 +36,26 @@ Candidatos
     <br>
     
     <p>Localization:</p>
-    <form method="GET" action="{{ route('filterMain') }}">
-    <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" value="{{ old('localization_main') }}" autofocus>
-                                    <option value="Aveiro">Aveiro</option>
-                                    <option value="Beja">Beja</option>
-                                    <option value="Braga">Braga</option>
-                                    <option value="Bragança">Bragança</option>
-                                    <option value="Castelo Branco">Castelo Branco</option>
-                                    <option value="Coimbra">Coimbra</option>
-                                    <option value="Faro">Faro</option>
-                                    <option value="Guarda">Guarda</option>
-                                    <option value="Leiria">Leiria</option>
-                                    <option value="Lisboa">Lisboa</option>
-                                    <option value="Portalegre">Portalegre</option>
-                                    <option value="Porto">Porto</option>
-                                    <option value="Santarém">Santarém</option>
-                                    <option value="Setubal">Setubal</option>
-                                    <option value="Viana do Castelo">Viana do Castelo</option>
-                                    <option value="Vila Real">Vila Real</option>
-                                    <option value="Viseu">Viseu</option>
-                                    <option value="Évora">Évora</option>
+    <form method="GET" action="{{ route('search') }}">
+    <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
+        <option value="Aveiro">Aveiro</option>
+        <option value="Beja">Beja</option>
+        <option value="Braga">Braga</option>
+        <option value="Bragança">Bragança</option>
+        <option value="Castelo Branco">Castelo Branco</option>
+        <option value="Coimbra">Coimbra</option>
+        <option value="Faro">Faro</option>
+        <option value="Guarda">Guarda</option>
+        <option value="Leiria">Leiria</option>
+        <option value="Lisboa">Lisboa</option>
+        <option value="Portalegre">Portalegre</option>
+        <option value="Porto">Porto</option>
+        <option value="Santarém">Santarém</option>
+        <option value="Setubal">Setubal</option>
+        <option value="Viana do Castelo">Viana do Castelo</option>
+        <option value="Vila Real">Vila Real</option>
+        <option value="Viseu">Viseu</option>
+        <option value="Évora">Évora</option>
     </select>
     <br>
     <div class="text-center">
@@ -112,7 +115,7 @@ Candidatos
         <h3 class="text-center">Não existe Candidatos!</h3>
         @endforelse
 
-    {!! $user->links('pagination::bootstrap-4')!!}
+    {!! $user->appends($data)->links('pagination::bootstrap-4')!!}
   </div> 
 
 </div>

@@ -17,7 +17,7 @@ class search
     public function handle(Request $request, Closure $next)
     {
         if(auth()->user()->type==0){
-            return redirect ('/listC');
+            return redirect()->route('search');
         }
         return redirect('/list');
     }

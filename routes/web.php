@@ -29,11 +29,7 @@ Route::post('/email',[HomeController::class, 'email'])->name('email');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
 
-Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
-
-Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('search');
-Route::get('/searchF', [HomeController::class, 'filter'])->name('filterMain')->middleware('isEmpresa');
-Route::get('/searchFR', [HomeController::class, 'filterRegion'])->name('filterRegion')->middleware('isEmpresa');
+Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('isEmpresa');
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');

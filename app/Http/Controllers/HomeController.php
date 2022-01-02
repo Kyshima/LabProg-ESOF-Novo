@@ -53,28 +53,24 @@ class HomeController extends Controller
             return view('user.upload', ['user' => $user]);
     }
 
-    public function listC()
+    public function search(Request $request)
     {
         $v = Auth::user();
-        $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
-        $data->request->all();
-        return view('user.list',['user'=>$user]);
-    }
-
-    public function filter(Request $request)
-    {
-        $v = Auth::user();
-        $user= User::where('type', 1)->where('localization_main', $request->localization_main)->where('position_main', $v->position_main)->paginate(12);
-        //dd($user);
-        return view('user.list',['user'=>$user]);
-    }
-
-    public function filterRegion(Request $request)
-    {
-        $v = Auth::user();
-        $user= User::where('type', 1)->where('localization_sec', $request->localization_sec)->where('position_main', $v->position_main)->paginate(12);
-        //dd($user);
-        return view('user.list',['user'=>$user]);
+        $data = $request->all();
+        if($request->has('localization_main')){
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->paginate(12);
+            //dd($user);
+        }
+        else if($request->has('localization_sec')){
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->paginate(12);
+        }
+        else{
+            $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
+            $data = $request->all();
+        }
+        return view('user.list',['user'=>$user, 'data'=> $data]);
     }
 
     public function email(Request $request){

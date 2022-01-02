@@ -14,7 +14,7 @@
                         <a href="{{route('home')}}" class="nav-link">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{url('/search')}}" class="nav-link">Pesquisar</a>
+                        <a href="{{route('search')}}" class="nav-link">Search</a>
                       </li>
                     </ul>
 
