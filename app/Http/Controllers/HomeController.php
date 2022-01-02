@@ -44,6 +44,11 @@ class HomeController extends Controller
 
     public function update(Request $request){
         $user = Auth::user();
+        switch($request->localization_main){
+            case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $user->localization_sec = 'Norte'; break;
+            case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $user->localization_sec ='Centro'; break;
+            case 'Évora': case 'Setubal': case 'Beja': case 'Faro': $user->localization_sec ='Sul'; break;
+        }
         $user->update($request->all());
         return redirect()->route('home')->with('status', 'Your profile has been updated!');
     }
