@@ -63,20 +63,6 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="position_sec" class="col-md-4 col-form-label text-md-end">{{ __('Position') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="position_sec" type="text" class="form-control @error('position_sec') is-invalid @enderror" name="position_sec" value="{{ old('position_sec') }}" required autocomplete="position_sec" autofocus>
-
-                                @error('position_sec')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
                             <label for="localization_main" class="col-md-4 col-form-label text-md-end">{{ __('Localization City') }}</label>
 
                             <div class="col-md-6">

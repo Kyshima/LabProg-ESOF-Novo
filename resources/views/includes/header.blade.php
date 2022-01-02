@@ -33,7 +33,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Register') }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
                                     <a class="dropdown-item" href="{{ url('/registerE') }}">
                                         {{ __('Registar Company') }}
                                     </a>
@@ -50,7 +50,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
@@ -83,6 +83,7 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
-            </div>
+                </div>   
+            </div>   
         </nav>
+    

@@ -59,7 +59,6 @@ class RegisterController extends Controller
             'position_main' => ['required','regex:/^(Administrative|Computer Science|Culinary|Design|Education|Public Services|Services to the Public|Other)$/'],
             'position_sec' => ['required','max:50'],
             'localization_main' => ['required','regex:/^(Viana do Castelo|Braga|Porto|Vila Real|Bragança|Aveiro|Viseu|Guarda|Coimbra|Castelo Branco|Leiria|Santarém|Lisboa|Portalegre|Évora|Setubal|Beja|Faro)$/'],
-            'localization_sec' => ['required','max:50'],
             'years' => ['required','min:0','max:45'],
 
             'type' => ['required','regex:/^[0-1]$/'],
@@ -74,13 +73,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        switch($data['localization_main']){
+            case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $loc_sec='Norte'; break;
+            case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $loc_sec='Centro'; break;
+            case 'Évora': case 'Setubal': case 'Beja': case 'Faro': $loc_sec='Sul'; break;
+        }
         return User::create([
             'name' => $data['name'],
             'lastName' => $data['lastName'],
             'position_main' => $data['position_main'],
             'position_sec' => $data['position_sec'],
             'localization_main' => $data['localization_main'],
-            'localization_sec' => $data['localization_sec'],
+            'localization_sec' => $loc_sec,
             'years' => $data['years'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
