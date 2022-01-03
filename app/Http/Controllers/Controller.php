@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class Controller extends BaseController
@@ -26,13 +27,6 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
-    {   
-        $v = Auth::user();
-        $user= User::where('type', 0)->where('position_main', $v->position_main)->paginate(18);
-        return view('empresa.list',['user'=>$user]);
-    }
-
     public function registerC()
     {
         return view('auth/registerCandidato');

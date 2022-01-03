@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [Controller::class, 'index'])->name('first');
-Route::get('/teste', [Controller::class, 'teste']);
-Route::get('/list', [Controller::class, 'list']);
 
 Route::get('/registerC', [Controller::class, 'registerC']);
 Route::get('/registerE', [Controller::class, 'registerE']);
@@ -29,9 +27,7 @@ Route::post('/email',[HomeController::class, 'email'])->name('email');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
 
-Route::get('/listC', [HomeController::class, 'listC'])->middleware('isEmpresa');
-
-Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('search');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
@@ -41,3 +37,5 @@ Route::post('/erase', [HomeController::class, 'erase'])->name('erase');
 
 Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);
+
+Route::post('/generate-pdf', [HomeController::class, 'generatePDF']);

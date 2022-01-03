@@ -14,7 +14,7 @@
                         <a href="{{route('home')}}" class="nav-link">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{url('/search')}}" class="nav-link">Pesquisar</a>
+                        <a href="{{route('search')}}" class="nav-link">Search</a>
                       </li>
                     </ul>
 
@@ -33,7 +33,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Register') }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
                                     <a class="dropdown-item" href="{{ url('/registerE') }}">
                                         {{ __('Registar Company') }}
                                     </a>
@@ -50,14 +50,14 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
                                     <?php
                                         $user = Auth::user();
                                         if($user->type == 1){
-                                            echo "<a class=\"dropdown-item\" href=\"{{ route('editPhoto') }}\">Edit Your Photo</a>";
+                                            echo "<a class='dropdown-item' href="."/editPhoto".">Edit Your Photo</a>";
                                         }
                                     ?>
                                 
@@ -83,6 +83,7 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
-            </div>
+                </div>   
+            </div>   
         </nav>
+    

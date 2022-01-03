@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -44,6 +45,11 @@ class HomeController extends Controller
 
     public function update(Request $request){
         $user = Auth::user();
+        switch($request->localization_main){
+            case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $user->localization_sec = 'Norte'; break;
+            case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $user->localization_sec ='Centro'; break;
+            case 'Évora': case 'Setubal': case 'Beja': case 'Faro': $user->localization_sec ='Sul'; break;
+        }
         $user->update($request->all());
         return redirect()->route('home')->with('status', 'Your profile has been updated!');
     }
@@ -53,11 +59,42 @@ class HomeController extends Controller
             return view('user.upload', ['user' => $user]);
     }
 
-    public function listC()
+    public function search(Request $request)
     {
         $v = Auth::user();
-        $user= User::where('type', 1)->where('position_main', $v->position_main)->paginate(12);
-        return view('user.list',['user'=>$user]);
+        if($v->type == 0){
+        $data = $request->all();
+        if($request->has('localization_main')){
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
+        }
+        else if($request->has('localization_sec')){
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
+        }
+        else{
+            $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
+            $data = $request->all();
+        }
+        return view('user.list',['user'=>$user, 'data'=> $data]);
+        }
+        
+        else{
+            $data = $request->all();
+        if($request->has('localization_main')){
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $v->years)->paginate(12);
+        }
+        else if($request->has('localization_sec')){
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $v->years)->paginate(12);
+        }
+        else{
+            $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
+            $data = $request->all();
+        }
+        return view('empresa.list',['user'=>$user, 'data'=> $data]);
+        }
     }
 
     public function email(Request $request){
@@ -70,7 +107,8 @@ class HomeController extends Controller
             $str=explode('|',$request->enviado);
             $send->compName = $str[0];
             $send->compEmail = $str[1];
-            $send->position = $str[2];
+            $send->position_main = $str[2];
+            $send->position_sec = $str[3];
             $send->type = $user->type;
         }else{
             $send = new \stdClass();
@@ -80,12 +118,13 @@ class HomeController extends Controller
             $send->userName = $str[0];
             $send->userLastName = $str[1];
             $send->userEmail = $str[2];
-            $send->position = $str[3];
+            $send->position_main = $str[3];
+            $send->position_sec = $str[4];
             $send->type = $user->type;
         }
         
         Mail::send(new \App\Mail\connection($send,$user->type));   
-        return redirect()->route('search');
+        return redirect()->route('search')->with('email', 'Email has been sent!');
     }
 
 
@@ -119,4 +158,30 @@ class HomeController extends Controller
         return redirect()->route('first')->with('global', 'Your account has been deleted!');;
     }
 
+    public function generatePDF(Request $request){
+        $send = new \stdClass();
+        $str=explode('|',$request->enviado);
+        $send->userName = $str[0];
+        $send->userLastName = $str[1];
+        $send->userEmail = $str[2];
+        $send->position_main = $str[3];
+        $send->position_sec = $str[4];
+        $send->localization_main = $str[5];
+        $send->years = $str[6];
+
+        $data = [
+            'title' => 'Curriculum Vitae',
+            'date' => date('d/M/Y'),
+            'name' => $str[0],
+            'lastName' => $str[1],
+            'email' => $str[2],
+            'position_main' => $str[3],
+            'position_sec' => $str[4],
+            'localization_main' => $str[5],
+            'years' => (int) $str[6],
+        ];
+
+        $pdf = PDF::loadView('myPDF', $data);
+        return $pdf->download($str[0].'_'.$str[1].'_'.date('d/m/y').'.pdf');
+    }
 }
