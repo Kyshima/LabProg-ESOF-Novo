@@ -77,6 +77,7 @@ class RegisterController extends Controller
             case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $loc_sec='Norte'; break;
             case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $loc_sec='Centro'; break;
             case 'Évora': case 'Setubal': case 'Beja': case 'Faro': $loc_sec='Sul'; break;
+            default: break;
         }
         return User::create([
             'name' => $data['name'],

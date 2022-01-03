@@ -75,17 +75,17 @@ Candidatos
 
     <div class="table-responsive-sm">
 <table class="table table-bordered">
+    <caption>List of Companies</caption>
     <tr class="bg-primary text-white">
-        <th class="text-center">Company's name</th>
-        <th class='text-center'>Localization</th>
-        <th class='text-center'>Years of Experience Min</th>
-        <th class='text-center'>Position Wanted</th>
-        <th class='text-center'>Email</th>
+        <th class="text-center" id="Company's name">Company's name</th>
+        <th class='text-center' id="Localization">Localization</th>
+        <th class='text-center' id="Years of Experience Min">Years of Experience Min</th>
+        <th class='text-center' id="Position Wanted">Position Wanted</th>
+        <th class='text-center' id="Email">Email</th>
     </tr>
     <form method='POST' action="{{ route('email') }}">
         @csrf
     <?php
-        use App\Models\User;
         for($numcand=0;$numcand<count($user);$numcand++){
                 echo "<tr>";
                 echo "<td class='text-center'>".$user[$numcand]->name."</td>";
