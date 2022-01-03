@@ -17,6 +17,17 @@ class UserFactory extends Factory
     {
         $tipo=rand(0,5);
         $position=Arr::random(array('Administrative','Computer Science','Culinary','Design','Education','Public Services','Services to the Public','Other'));
+        switch($position){
+            case 'Administrative': $position_sec = Arr::random(array('Secretary', 'Human Resources', 'Administrative Assistant', 'Accountant')); break;
+            case 'Computer Science': $position_sec =Arr::random(array('Software Engineer', 'Hardware Technician', 'Data Scientist', 'Network Engineer','')); break;
+            case 'Culinary': $position_sec = Arr::random(array('Chef', 'Sous Chef', 'Waitress')); break;
+            case 'Design': $position_sec = Arr::random(array('Architect', 'Designer', 'Multimedia Designer', 'Graphics Designer')); break;
+            case 'Education': $position_sec = Arr::random(array('Primary School Teacher', 'High School Teacher', 'University Teacher', 'Tutor')); break;
+            case 'Public Services': $position_sec = Arr::random(array('Firefighter', 'Police', 'Doctor', 'EMT', 'Paramedic')); break;
+            case 'Services to the Public': $position_sec = Arr::random(array('Public Transport Operator', 'Judge', 'Public Area Cleaner', 'Sales Assistant')); break;
+            case 'Other': $position_sec = Arr::random(array('Farmer', 'Housekeeper', 'Car Cleaner', 'Gardener')); break;
+        }
+
         $loc=Arr::random(array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu'));
         switch($loc){
             case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $loc_sec='Norte'; break;
@@ -33,7 +44,7 @@ class UserFactory extends Factory
                 'name' => $name,
                 'lastName' => $lastname,
                 'position_main' => $position,
-                'position_sec' => $position." ".Str::random(5),
+                'position_sec' => $position_sec,
                 'years' => rand(0,45),
                 'localization_main' => $loc,
                 'localization_sec' => $loc_sec,
@@ -49,7 +60,7 @@ class UserFactory extends Factory
                 'type' => 0,
                 'name' => $this->faker->company(),
                 'position_main' => $position,
-                'position_sec' => $position." ".Str::random(5),
+                'position_sec' => $position_sec,
                 'years' => rand(0,10),
                 'localization_main' => $loc,
                 'localization_sec' => $loc_sec,
