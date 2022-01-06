@@ -118,11 +118,10 @@ Candidatos
     </div>
         @forelse($user as $a)
         @empty
-        <h3 class="text-center">Não existe Candidatos!</h3>
+        <h3 class="text-center">No Candidates have been found!</h3>
         @endforelse
 
     {!! $user->appends($data)->links('pagination::bootstrap-4')!!}
   </div> 
-
 </div>
 @endsection
