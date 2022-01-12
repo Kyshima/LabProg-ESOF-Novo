@@ -23,8 +23,15 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Create a new controller instance.
+     * Where to redirect users after login.
      *
+     * @var string
+     */
+    //protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Create a new controller instance.
+     *php artisan 
      * @return void
      */
     public function __construct()
@@ -51,7 +58,7 @@ class LoginController extends Controller
             }
         }else{
             return redirect()->route('login')
-                ->with('login','Email ou Password errados.');
+                ->with('login','Email/Password are wrong, please try again');
         }
     }
 }

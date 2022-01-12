@@ -35,7 +35,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
                                     <a class="dropdown-item" href="{{ url('/registerE') }}">
-                                        {{ __('Registar Company') }}
+                                        {{ __('Register Company') }}
                                     </a>
 
                                     <a class="dropdown-item" href="{{ url('/registerC') }}">

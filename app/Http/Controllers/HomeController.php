@@ -49,7 +49,6 @@ class HomeController extends Controller
             case 'Viana do Castelo': case 'Braga': case 'Porto': case 'Vila Real': case 'Bragança':    $user->localization_sec = 'Norte'; break;
             case 'Aveiro': case 'Viseu': case 'Guarda': case 'Coimbra': case 'Castelo Branco': case 'Leiria': case 'Santarém': case 'Lisboa': case 'Portalegre': $user->localization_sec ='Centro'; break;
             case 'Évora': case 'Setubal': case 'Beja': case 'Faro': $user->localization_sec ='Sul'; break;
-            default: break;
         }
         $user->update($request->all());
         return redirect()->route('home')->with('status', 'Your profile has been updated!');
@@ -63,24 +62,39 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $v = Auth::user();
-        if($v->type == 0){$tipo=1;} else {$tipo=0;}
-
+        if($v->type == 0){
         $data = $request->all();
         if($request->has('localization_main')){
-            if($request->has('localization_sec'))  {$data->localization_sec = null;}
-            $user = User::where('type', $tipo)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
         }
         else if($request->has('localization_sec')){
-            if($request->has('localization_main'))  {$data->localization_main = null;}
-            $user = User::where('type', $tipo)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
         }
         else{
-            $user= User::where('type', $tipo)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
+            $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
             $data = $request->all();
         }
-
-        if($tipo==1){return view('user.list',['user'=>$user, 'data'=> $data]);}
-        else{return view('empresa.list',['user'=>$user, 'data'=> $data]);}
+        return view('user.list',['user'=>$user, 'data'=> $data]);
+        }
+        
+        else{
+            $data = $request->all();
+        if($request->has('localization_main')){
+            if(($request->has('localization_sec')))  $data->localization_sec = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $v->years)->paginate(12);
+        }
+        else if($request->has('localization_sec')){
+            if(($request->has('localization_main')))  $data->localization_main = null;
+            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $v->years)->paginate(12);
+        }
+        else{
+            $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
+            $data = $request->all();
+        }
+        return view('empresa.list',['user'=>$user, 'data'=> $data]);
+        }
     }
 
     public function email(Request $request){
@@ -116,8 +130,12 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user()->id;
         $request->validate([
             'image' => 'required|image|max:5096',]);
+        
+        
+        $imageName = time().'_'.$user.'.'.$request->image->extension();
 
         $request->file('image')->store('public/images');
 
@@ -137,7 +155,7 @@ class HomeController extends Controller
         $user = User::find(Auth::user()->id);
         Auth::logout();
         $user->delete();
-        return redirect()->route('first')->with('global', 'Your account has been deleted!');
+        return redirect()->route('first')->with('global', 'Your account has been deleted!');;
     }
 
     public function generatePDF(Request $request){

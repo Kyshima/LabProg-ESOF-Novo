@@ -42,6 +42,7 @@
                             <label for="position_main" class="col-md-4 col-form-label text-md-end">{{ __('Position Area') }}</label>
 
                             <div class="col-md-6">
+                                <!--<input id="position_main" type="text" class="form-control @error('position') is-invalid @enderror" name="position_main" value="{{ old('position_main') }}" required autocomplete="position_main" autofocus>-->
                                 <select id="position_main" name="position_main" class="form-select form-control @error('position_main') is-invalid @enderror" autofocus>
                                     <option {{($user->position_main) == 'Administrative' ? 'selected' : ''}}  value="Administrative">Administrative</option>
                                     <option {{($user->position_main) == 'Computer Science' ? 'selected' : ''}}  value="Computer Science">Computer Science</option>
@@ -79,6 +80,7 @@
                             <label for="localization_main" class="col-md-4 col-form-label text-md-end">{{ __('Localization City') }}</label>
 
                             <div class="col-md-6">
+                                <!--<input id="localization_main" type="text" class="form-control @error('localization_main') is-invalid @enderror" name="localization_main" value="{{ old('localization_main') }}" required autocomplete="localization_main" autofocus>-->
                                 <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
                                     <option {{($user->localization_main) == 'Aveiro' ? 'selected' : ''}} value="Aveiro">Aveiro</option>
                                     <option {{($user->localization_main) == 'Beja' ? 'selected' : ''}} value="Beja">Beja</option>

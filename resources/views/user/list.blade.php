@@ -83,8 +83,6 @@ Candidatos
 
     <div class="table-responsive">
     <table class="table">
-        <caption>List of Candidates</caption>
-        <th id="candidate"></th>
     <tr>
         <?php
             for($numcand=0,$numcell=0;$numcand<count($user);$numcand++,$numcell++){
@@ -120,11 +118,10 @@ Candidatos
     </div>
         @forelse($user as $a)
         @empty
-        <h3 class="text-center">Não existe Candidatos!</h3>
+        <h3 class="text-center">No Candidates have been found!</h3>
         @endforelse
 
     {!! $user->appends($data)->links('pagination::bootstrap-4')!!}
   </div> 
-
 </div>
 @endsection
