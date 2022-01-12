@@ -14,51 +14,40 @@ Candidatos
 
   <form method="GET" action="{{ route('search') }}">
     <br> Region:
-    <div class="row">
-    <div class="col">
         <ul style="list-style-type: none;">
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Norte">Norte</div></li>
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Centro">Centro</div></li>
-            <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "Sul">Sul</div></li>
+            @php $reg=array('Norte','Centro','Sul'); @endphp
+
+            @foreach($reg as $r)
+            @if(isset($_GET['localization_sec']) && $_GET['localization_sec']==$r) 
+                <li><div class="form-check"><input checked type="radio" class="form-check-input" name="localization_sec" value = "{{ $r }}">{{ $r }}</div></li>
+            @else
+                <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "{{ $r }}">{{ $r }}</div></li>
+            @endif
+        @endforeach
         </ul>  
-    </div>
-    <div class="col">
-        <button type="submit" class="btn btn-primary">
-            {{ __('Search') }}
-        </button>
-    </div>
-    </div>
-    </form>
-
     <br>
-
     <p>Localization:</p>
-    <form method="GET" action="{{ route('search') }}">
-    <select id="localization_main" name="localization_main" class="form-select form-control @error('localization_main') is-invalid @enderror" autofocus>
-        <?php
-        $dist=array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu');
-        if(isset($data['localization_main'])) {$tt = $data['localization_main'];}
-        else {$tt = '';}
+    <ul style="list-style-type: none;">
+        @php $dist=array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu'); @endphp  
 
-        foreach($dist as $d){
-            if($d != $tt) {
-            echo "<option value='".$d."'>".$d."</option>";
-            }else{
-                echo "<option selected value='".$d."'>".$d."</option>";
-            }
-        }
-        ?>
-    </select>
-
+        @foreach($dist as $d)
+            @if(isset($_GET['localization_main']) && $_GET['localization_main']==$d) 
+                <li><div class="form-check"><input checked type="radio" class="form-check-input" name="localization_main" value = "{{ $d }}">{{ $d }}</div></li>
+            @else
+                <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_main" value = "{{ $d }}">{{ $d }}</div></li>
+            @endif
+        @endforeach
+    </ul> 
     <br>
-
     <div class="text-center">
     <button type="submit" class="btn btn-primary">
             {{ __('Search') }}
     </button>
     </div>
   </form>
+
   <br>
+  
   <form action="{{route('search')}}">
   <div class="text-center">
     <button type="submit" class="btn btn-secondary">
@@ -84,35 +73,32 @@ Candidatos
     <div class="table-responsive">
     <table class="table">
     <tr>
-        <?php
-            for($numcand=0,$numcell=0;$numcand<count($user);$numcand++,$numcell++){
-                if($numcell==4){
-                    echo '</tr><tr>';
-                    $numcell = 0;
-                }
-                echo '<td>';
-                    echo '<table>';
-                    echo "<tr><td><img src='storage/images/".$user[$numcand]->img."' alt='profilepic' height='200px' width='200px' style=\"object-fit: cover;\"></td></tr>";
-                    echo "<tr><td class='text-center'>";
-                    echo $user[$numcand]->name." ".$user[$numcand]->lastName."<br>";
-                    echo $user[$numcand]->position_sec."<br>";
-                    echo (int)$user[$numcand]->years." Years of Experience<br>";
-                    echo $user[$numcand]->localization_main."<br>";
+            @for($numcand=0,$numcell=0; $numcand < count($user) ; $numcand++,$numcell++)
+                @if($numcell==4)
+                    </tr><tr>
+                    @php $numcell = 0; @endphp
+                @endif
+                <td>
+                    <table>
+                    <tr><td><img src="storage/images/{{ $user[$numcand]->img }}" alt='profilepic' height='200px' width='200px' style="object-fit: cover;"></td></tr>
+                    <tr><td class='text-center'>
+                    {{ $user[$numcand]->name }} {{ $user[$numcand]->lastName }}<br>
+                    {{ $user[$numcand]->position_sec }}<br>
+                    {{ (int)$user[$numcand]->years }} Years of Experience<br>
+                    {{ $user[$numcand]->localization_main }}<br>
                     
-                    echo "<div class='btn-group'>";
-                    echo "<form method='POST' action=".'/email'.">";
-                    echo "<button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position_main."|".$user[$numcand]->position_sec."'>Email</button>";
-                    echo "</form>";
+                    <div class='btn-group'>
+                    <form method='POST' action="/email">
+                    <button type='submit' class='btn btn-primary' name='enviado' value="{{ $user[$numcand]->name }}|{{ $user[$numcand]->lastName }}|{{ $user[$numcand]->email }}|{{ $user[$numcand]->position_main }}|{{ $user[$numcand]->position_sec }}">Email</button>
+                    </form>
 
-                    echo "<form method='POST' action=".'/generate-pdf'.">";
-                    echo "<button type='submit' class='btn btn-outline-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->lastName."|".$user[$numcand]->email."|".$user[$numcand]->position_main."|".$user[$numcand]->position_sec."|".$user[$numcand]->localization_main."|".$user[$numcand]->years."'>PDF</button>";
-                    echo "</form>";
-                    echo "</div></td>";
+                    <form method='POST' action="/generate-pdf">
+                    <button type='submit' class='btn btn-outline-primary' name='enviado' value="{{ $user[$numcand]->name }}|{{ $user[$numcand]->lastName }}|{{ $user[$numcand]->email }}|{{ $user[$numcand]->position_main }}|{{ $user[$numcand]->position_sec}}|{{$user[$numcand]->localization_main }}|{{ $user[$numcand]->years }}">PDF</button>
+                    </form>
+                    </div></td>
 
-                echo '</td></tr></table>';
-                }
-            
-        ?>
+                </td></tr></table>
+            @endfor
     </tr>    
     </table>
     </div>
@@ -121,7 +107,7 @@ Candidatos
         <h3 class="text-center">No Candidates have been found!</h3>
         @endforelse
 
-    {!! $user->appends($data)->links('pagination::bootstrap-4')!!}
+    {!! $user->links('pagination::bootstrap-4')!!}
   </div> 
 </div>
 @endsection

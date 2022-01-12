@@ -57,11 +57,11 @@
                       </tr>
 
                       <tr>
-                      <td class='text-center'>".Auth::user()->name."</td>
-                      <td class='text-center'>".Auth::user()->localization_main."</td>
-                      <td class='text-center'>".Auth::user()->position_main."</td>
-                      <td class='text-center'>".Auth::user()->position_sec."</td>
-                      <td class='text-center'>".(int)Auth::user()->years."</td>
+                      <td class='text-center'>{{ Auth::user()->name }}</td>
+                      <td class='text-center'>{{ Auth::user()->localization_main }}</td>
+                      <td class='text-center'>{{ Auth::user()->position_main }}</td>
+                      <td class='text-center'>{{ Auth::user()->position_sec }}</td>
+                      <td class='text-center'>{{ (int)Auth::user()->years }}</td>
                       </tr>
                       </table>
                     @endif

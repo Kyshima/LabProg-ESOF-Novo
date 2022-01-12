@@ -61,39 +61,33 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        $v = Auth::user();
-        if($v->type == 0){
-        $data = $request->all();
-        if($request->has('localization_main')){
-            if(($request->has('localization_sec')))  $data->localization_sec = null;
-            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
-        }
-        else if($request->has('localization_sec')){
-            if(($request->has('localization_main')))  $data->localization_main = null;
-            $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
-        }
-        else{
-            $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
-            $data = $request->all();
-        }
-        return view('user.list',['user'=>$user, 'data'=> $data]);
-        }
-        
-        else{
-            $data = $request->all();
-        if($request->has('localization_main')){
-            if(($request->has('localization_sec')))  $data->localization_sec = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $v->years)->paginate(12);
-        }
-        else if($request->has('localization_sec')){
-            if(($request->has('localization_main')))  $data->localization_main = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $v->years)->paginate(12);
-        }
-        else{
-            $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
-            $data = $request->all();
-        }
-        return view('empresa.list',['user'=>$user, 'data'=> $data]);
+        $u = Auth::user();
+        if($u->type == 0){
+            if($request->has('localization_main') && $request->has('localization_sec')){
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '>=', $u->years)->paginate(12);
+            } else if($request->has('localization_main')){
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $u->years)->paginate(12);
+            }
+            else if($request->has('localization_sec')){
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $u->years)->paginate(12);
+            }
+            else{
+                $user= User::where('type', 1)->where('position_main', $u->position_main)->where('years', '>=', $u->years)->paginate(12);
+            }
+            return view('user.list',['user'=>$user]);
+        } else {
+            if($request->has('localization_main') && $request->has('localization_sec')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '<=', $u->years)->paginate(12);
+            } else if($request->has('localization_main')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $u->years)->paginate(12);
+            }
+            else if($request->has('localization_sec')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $u->years)->paginate(12);
+            }
+            else{
+                $user= User::where('type', 0)->where('position_main', $u->position_main)->where('years', '<=', $u->years)->paginate(12);
+            }
+            return view('empresa.list',['user'=>$user]);
         }
     }
 

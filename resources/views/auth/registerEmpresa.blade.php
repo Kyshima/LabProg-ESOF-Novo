@@ -147,15 +147,11 @@
                             </div>
                         </div>
 
-                        <?php
-                        $n=NULL;
-                        echo "
+                        @php $n=NULL; @endphp
                         <input type='hidden' name='type' value='0'>
-                        <input type='hidden' name='lastName' value=$n>
-                        <input type='hidden' name='default' value=$n>
-                        <input type='hidden' name='img' value=$n>
-                        ";
-                        ?>
+                        <input type='hidden' name='lastName' value="{{ $n }}">
+                        <input type='hidden' name='default' value="{{ $n }}">
+                        <input type='hidden' name='img' value="{{ $n }}">
                         
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4" style="text-align: center;">

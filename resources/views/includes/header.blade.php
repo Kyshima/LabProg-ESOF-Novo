@@ -54,13 +54,10 @@
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
-                                    <?php
-                                        $user = Auth::user();
-                                        if($user->type == 1){
-                                            echo "<a class='dropdown-item' href="."/editPhoto".">Edit Your Photo</a>";
-                                        }
-                                    ?>
-                                
+
+                                    @if(Auth::user()->type == 1){
+                                        echo "<a class='dropdown-item' href="/editPhoto">Edit Your Photo</a>
+                                    @endif
 
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         {{ __('Edit your Credentials') }}
