@@ -19,7 +19,7 @@ class UserFactory extends Factory
         $position=Arr::random(array('Administrative','Computer Science','Culinary','Design','Education','Public Services','Services to the Public','Other'));
         switch($position){
             case 'Administrative': $position_sec = Arr::random(array('Secretary', 'Human Resources', 'Administrative Assistant', 'Accountant')); break;
-            case 'Computer Science': $position_sec =Arr::random(array('Software Engineer', 'Hardware Technician', 'Data Scientist', 'Network Engineer','')); break;
+            case 'Computer Science': $position_sec =Arr::random(array('Software Engineer', 'Hardware Technician', 'Data Scientist', 'Network Engineer')); break;
             case 'Culinary': $position_sec = Arr::random(array('Chef', 'Sous Chef', 'Waitress')); break;
             case 'Design': $position_sec = Arr::random(array('Architect', 'Designer', 'Multimedia Designer', 'Graphics Designer')); break;
             case 'Education': $position_sec = Arr::random(array('Primary School Teacher', 'High School Teacher', 'University Teacher', 'Tutor')); break;

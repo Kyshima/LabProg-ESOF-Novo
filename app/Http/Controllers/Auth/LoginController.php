@@ -31,7 +31,7 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *
+     *php artisan 
      * @return void
      */
     public function __construct()
