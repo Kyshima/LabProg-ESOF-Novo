@@ -28,6 +28,10 @@ Route::post('/email',[HomeController::class, 'email'])->name('email');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/empresa/home', [HomeController::class, 'index'])->name('empresa.home')->middleware('isEmpresa');
 
+Route::get('/lists', [HomeController::class, 'lists'])->middleware('isEmpresa');
+Route::post('/editEmpresa', [HomeController::class, 'editEmpresa'])->middleware('isEmpresa');
+Route::post('/removeEmpresa', [HomeController::class, 'removeEmpresa'])->middleware('isEmpresa');
+
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');

@@ -32,12 +32,33 @@ class HomeController extends Controller
         return view('home', ['data' => $data]); 
     }
 
+    public function lists()
+    {
+        $u = Auth::user();
+        $data = User::where('type', 0)->where('email', $u->email)->get();
+        return view('empresa.options', ['data' => $data]); 
+    }
+
     public function edit(){
         $user = Auth::user();
         if($user->type == 1){
             return view('user.edit', ['user' => $user]);
         }
         return view('empresa.edit', ['user' => $user]);
+    }
+
+    public function editEmpresa(Request $request){
+        Auth::logout(); 
+        $user = User::find($request->id);
+        Auth::login($user);
+        return $this->edit();
+    }
+
+    public function removeEmpresa(Request $request){
+        Auth::logout(); 
+        $user = User::find($request->id);
+        Auth::login($user);
+        return $this->delete();
     }
 
     public function update(Request $request){
@@ -149,10 +170,22 @@ class HomeController extends Controller
     }
 
     public function erase(){
+        $u = Auth::user();
+        $data = User::where('type', 0)->where('email', $u->email)->get();
+        $email=$u->email;
+
         $user = User::find(Auth::user()->id);
         Auth::logout();
         $user->delete();
-        return redirect()->route('first')->with('global', 'Your account has been deleted!');;
+
+        if(count($data)==1){
+            return redirect()->route('first')->with('global', 'Your account has been deleted!');;
+        } else {
+            $data = User::where('type', 0)->where('email', $email)->first();
+            $user = User::find($data->id);
+            Auth::login($user);
+            return redirect()->route('home')->with('status', 'Your Position has been Removed!');
+        }  
     }
 
     public function generatePDF(Request $request){

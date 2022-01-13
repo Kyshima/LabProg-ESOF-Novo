@@ -51,25 +51,35 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
+                                    @if(Auth::user()->type == 0)
+                                        <a class='dropdown-item' href="/add">Add New Position</a>
+                                    @endif
+
+                                    @if(Auth::user()->type == 0)
+                                        <a class='dropdown-item' href="/lists">Edit/Remove</a>
+                                    @endif
+
+                                    @if(Auth::user()->type == 1)
                                     <a class="dropdown-item" href="{{ route('edit') }}">
                                         {{ __('Edit your Information') }}
                                     </a>
+                                    @endif
 
                                     @if(Auth::user()->type == 1)
                                         <a class='dropdown-item' href="/editPhoto">Edit Your Photo</a>
                                     @endif
 
-                                    @if(Auth::user()->type == 0)
-                                        <a class='dropdown-item' href="/add">Add New Position</a>
-                                    @endif
-
+                                    @if(Auth::user()->type == 1)
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         {{ __('Edit your Credentials') }}
                                     </a>
+                                    @endif
 
+                                    @if(Auth::user()->type == 1)
                                     <a class="dropdown-item" href="{{ route('delete') }}">
                                         {{ __('Delete Profile') }}
                                     </a>
+                                    @endif
                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
