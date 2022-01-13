@@ -59,6 +59,10 @@
                                         <a class='dropdown-item' href="/editPhoto">Edit Your Photo</a>
                                     @endif
 
+                                    @if(Auth::user()->type == 0)
+                                        <a class='dropdown-item' href="/add">Add New Position</a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         {{ __('Edit your Credentials') }}
                                     </a>

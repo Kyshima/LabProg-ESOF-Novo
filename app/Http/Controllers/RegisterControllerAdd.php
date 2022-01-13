@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -30,9 +31,19 @@ class RegisterControllerAdd extends Controller
 
     public function empresaAddNew(Request $request)
     {
-        $array=array($request->position_main,$request->position_sec,$request->years);
-        validator($array);
-        create($array);
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 
     /**
@@ -72,6 +83,7 @@ class RegisterControllerAdd extends Controller
             'default' => $user->default,
             'img' => $user->img,
             'type' => $user->type,
+            'email_verified_at' => $user->email_verified_at
         ]);
     }
 }

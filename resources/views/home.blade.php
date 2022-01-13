@@ -21,7 +21,6 @@
     </div>
   </div>
 </div>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -45,9 +44,9 @@
                       {{ Auth::user()->position_main }} - {{ Auth::user()->position_sec }}<br>
                       {{ (int)Auth::user()->years }} Years of Experience<br>
                       {{ Auth::user()->localization_main }}<br>
-                      </table>
+                    </table>
                     @else
-                      <table class='center'>
+                    <table class='center'>
                       <tr class='bg-primary text-white'>
                       <th class='text-center'>Company's name</th>
                       <th class='text-center'>Localization</th>
@@ -55,15 +54,16 @@
                       <th class='text-center'>Position Wanted</th>
                       <th class='text-center'>Years of Experience Min</th>
                       </tr>
-
+                    @foreach($data as $d)
                       <tr>
-                      <td class='text-center'>{{ Auth::user()->name }}</td>
-                      <td class='text-center'>{{ Auth::user()->localization_main }}</td>
-                      <td class='text-center'>{{ Auth::user()->position_main }}</td>
-                      <td class='text-center'>{{ Auth::user()->position_sec }}</td>
-                      <td class='text-center'>{{ (int)Auth::user()->years }}</td>
+                      <td class='text-center'>{{ $d->name }}</td>
+                      <td class='text-center'>{{ $d->localization_main }}</td>
+                      <td class='text-center'>{{ $d->position_main }}</td>
+                      <td class='text-center'>{{ $d->position_sec }}</td>
+                      <td class='text-center'>{{ (int)$d->years }}</td>
                       </tr>
-                      </table>
+                    @endforeach
+                    </table>
                     @endif
                 </div>
                 </div>
