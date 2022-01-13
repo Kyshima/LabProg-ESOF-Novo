@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterControllerAdd extends Controller
 {
@@ -26,9 +28,11 @@ class RegisterControllerAdd extends Controller
         return view('empresa.add',['user' => $user]);
     }
 
-    public function empresaAddNew()
+    public function empresaAddNew(Request $request)
     {
-
+        $array=array($request->position_main,$request->position_sec,$request->years);
+        validator($array);
+        create($array);
     }
 
     /**
@@ -42,6 +46,7 @@ class RegisterControllerAdd extends Controller
         return Validator::make($data, [
             'position_main' => ['required','regex:/^(Administrative|Computer Science|Culinary|Design|Education|Public Services|Services to the Public|Other)$/'],
             'position_sec' => ['required','max:50'],
+            'years' => ['required','min:0','max:45'],
         ]);
     }
     
@@ -61,7 +66,7 @@ class RegisterControllerAdd extends Controller
             'position_sec' => $data['position_sec'],
             'localization_main' => $user->localization_main,
             'localization_sec' => $user->localization_sec,
-            'years' => $user->years,
+            'years' => $data['years'],
             'email' => $user->email,
             'password' => $user->password,
             'default' => $user->default,
