@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegisterControllerAdd;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,7 +26,7 @@ Auth::routes(['verify'=>true]);
 Route::post('/email',[HomeController::class, 'email'])->name('email');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/empresa/home', [HomeController::class, 'empresaIndex'])->name('empresa.home')->middleware('isEmpresa');
+Route::get('/empresa/home', [HomeController::class, 'index'])->name('empresa.home')->middleware('isEmpresa');
 
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
@@ -39,3 +40,6 @@ Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);
 
 Route::post('/generate-pdf', [HomeController::class, 'generatePDF']);
+
+Route::get('/add', [RegisterControllerAdd::class, 'empresaAdd'])->middleware('isEmpresa');
+Route::post('/addN', [RegisterControllerAdd::class, 'empresaAddNew']);
