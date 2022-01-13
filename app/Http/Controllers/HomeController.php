@@ -30,11 +30,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function empresaIndex()
-    {
-        return view('home');
-    }
-
     public function edit(){
         $user = Auth::user();
         if($user->type == 1){

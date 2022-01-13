@@ -55,8 +55,8 @@
                                         {{ __('Edit your Information') }}
                                     </a>
 
-                                    @if(Auth::user()->type == 1){
-                                        echo "<a class='dropdown-item' href="/editPhoto">Edit Your Photo</a>
+                                    @if(Auth::user()->type == 1)
+                                        <a class='dropdown-item' href="/editPhoto">Edit Your Photo</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
