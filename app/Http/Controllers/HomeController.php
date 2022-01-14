@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+
 use PDF;
 
 class HomeController extends Controller
@@ -94,7 +95,7 @@ class HomeController extends Controller
                 $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
                 $data = $request->all();
             }
-            return view('user.list',['user'=>$user, 'data'=> $data]);
+            return view('user.list',['user'=>$user]);
         }
         
         else{
@@ -111,37 +112,16 @@ class HomeController extends Controller
             $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
             $data = $request->all();
         }
-        return view('empresa.list',['user'=>$user, 'data'=> $data]);
+        return view('empresa.list',['user'=>$user]);
         }
     }
 
     public function email(Request $request){
+
         $user= Auth::user();
-        if($user->type==1){
-            $send = new \stdClass();
-            $send->userName = $user->name;
-            $send->userLastName = $user->lastLame;
-            $send->userEmail = $user->email;
-            $str=explode('|',$request->enviado);
-            $send->compName = $str[0];
-            $send->compEmail = $str[1];
-            $send->position_main = $str[2];
-            $send->position_sec = $str[3];
-            $send->type = $user->type;
-        }else{
-            $send = new \stdClass();
-            $send->compName = $user->name;
-            $send->compEmail = $user->email;
-            $str=explode('|',$request->enviado);
-            $send->userName = $str[0];
-            $send->userLastName = $str[1];
-            $send->userEmail = $str[2];
-            $send->position_main = $str[3];
-            $send->position_sec = $str[4];
-            $send->type = $user->type;
-        }
+        $dest = User::where('id', $request->id)->first();
         
-        Mail::send(new \App\Mail\connection($send,$user->type));   
+        Mail::send(new \App\Mail\connection($user,$dest));   
         return redirect()->route('search')->with('email', 'Email has been sent!');
     }
 
@@ -189,29 +169,20 @@ class HomeController extends Controller
     }
 
     public function generatePDF(Request $request){
-        $send = new \stdClass();
-        $str=explode('|',$request->enviado);
-        $send->userName = $str[0];
-        $send->userLastName = $str[1];
-        $send->userEmail = $str[2];
-        $send->position_main = $str[3];
-        $send->position_sec = $str[4];
-        $send->localization_main = $str[5];
-        $send->years = $str[6];
-
+        $user = User::where('id', $request->pdf)->first();
         $data = [
             'title' => 'Curriculum Vitae',
             'date' => date('d/M/Y'),
-            'name' => $str[0],
-            'lastName' => $str[1],
-            'email' => $str[2],
-            'position_main' => $str[3],
-            'position_sec' => $str[4],
-            'localization_main' => $str[5],
-            'years' => (int) $str[6],
+            'name' => $user->name,
+            'lastName' => $user->lastName,
+            'email' => $user->email,
+            'position_main' => $user->position_main,
+            'position_sec' => $user->position_sec,
+            'localization_main' => $user->localization_main,
+            'years' => (int) $user->years,
         ];
 
         $pdf = PDF::loadView('myPDF', $data);
-        return $pdf->download($str[0].'_'.$str[1].'_'.date('d/m/y').'.pdf');
+        return $pdf->download($user->name.'_'.$user->lastName.'_'.date('d/m/y').'.pdf');
     }
 }

@@ -22,6 +22,8 @@ Route::get('/', [Controller::class, 'index'])->name('first');
 Route::get('/registerC', [Controller::class, 'registerC']);
 Route::get('/registerE', [Controller::class, 'registerE']);
 
+
+
 Auth::routes(['verify'=>true]);
 Route::post('/email',[HomeController::class, 'email'])->name('email');
 
