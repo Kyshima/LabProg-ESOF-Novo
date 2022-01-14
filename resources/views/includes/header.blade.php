@@ -70,6 +70,10 @@
                                     @endif
 
                                     @if(Auth::user()->type == 1)
+                                        <a class='dropdown-item' href="/editCv">Edit Your CV</a>
+                                    @endif
+
+                                    @if(Auth::user()->type == 1)
                                     <a class="dropdown-item" href="{{ route('password.request') }}">
                                         {{ __('Edit your Credentials') }}
                                     </a>

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use PDF;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
@@ -76,6 +77,11 @@ class HomeController extends Controller
             $user = Auth::user();
             return view('user.upload', ['user' => $user]);
     }
+
+    public function editCv(){
+        $user = Auth::user();
+        return view('user.cv', ['user' => $user]);
+}
 
     public function search(Request $request)
     {
@@ -154,6 +160,22 @@ class HomeController extends Controller
         return redirect()->route('home')->with('status', 'Image Has been updated!');
     }
 
+    public function storeCv(Request $request)
+    {
+        $user = Auth::user()->id;
+        $request->validate([
+            'cv' => 'required|mimes:pdf|max:5096',]);
+
+        $request->file('cv')->store('public/cv');
+
+        $user = Auth::user();
+        $user->cv = $request->file('cv')->hashName();
+        $user->default = 0;
+        $user->save();
+
+        return redirect()->route('home')->with('status', 'CV Has been updated!');
+    }
+
     public function delete(){
         $user = Auth::user();
         return view('delete', ['user' => $user]);
@@ -181,6 +203,12 @@ class HomeController extends Controller
     public function generatePDF(Request $request){
         $user = User::where('id', $request->pdf)->first();
 
+        if($user->default == 0){
+            $filepath = public_path() . "/storage/cv/".$user->cv;
+            $data = date('d_m_y');
+            $name = $user->name."_".$user->lastName."_".$data.".pdf";
+            return Response::download($filepath, $name);
+        }
         $data = [
             'title' => 'Curriculum Vitae',
             'date' => date('d/M/Y'),
@@ -194,6 +222,6 @@ class HomeController extends Controller
         ];
 
         $pdf = PDF::loadView('myPDF', $data);
-        return $pdf->download($user->name.'_'.$user->lastName.'_'.date('d/m/y').'.pdf');
+        return $pdf->download($user->name.'_'.$user->lastName.'_'.date('d_m_y').'.pdf');
     }
 }
