@@ -18,7 +18,7 @@ class connection extends Mailable
      * $n boolean - se true user sends to company, se false company sends to user
      * @return void
      */
-    public function __construct($user/*,User $company*/,$n)
+    public function __construct($user)
     {
         $this->user=$user;
     }

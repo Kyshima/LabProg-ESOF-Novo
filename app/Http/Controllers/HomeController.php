@@ -79,69 +79,62 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        $v = Auth::user();
-        if($v->type == 0){
-            $data = $request->all();
-            if($request->has('localization_main')){
-                if(($request->has('localization_sec')))  $data->localization_sec = null;
-                $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $v->years)->paginate(12);
+        $u = Auth::user();
+        if($u->type == 0){
+            if($request->has('localization_main') && $request->has('localization_sec')){
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '>=', $u->years)->paginate(12);
+            } else if($request->has('localization_main')){
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where('localization_main', $request->localization_main)->where('years', '>=', $u->years)->paginate(12);
             }
             else if($request->has('localization_sec')){
-                if(($request->has('localization_main')))  $data->localization_main = null;
-                $user = User::where('type', 1)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $v->years)->paginate(12);
+                $user = User::where('type', 1)->where('position_main', $u->position_main)->where('localization_sec', $request->localization_sec)->where('years', '>=', $u->years)->paginate(12);
             }
             else{
-                $user= User::where('type', 1)->where('position_main', $v->position_main)->where('years', '>=', $v->years)->paginate(12);
-                $data = $request->all();
+                $user= User::where('type', 1)->where('position_main', $u->position_main)->where('years', '>=', $u->years)->paginate(12);
             }
-            return view('user.list',['user'=>$user, 'data'=> $data]);
-        }
-        
-        else{
-            $data = $request->all();
-        if($request->has('localization_main')){
-            if(($request->has('localization_sec')))  $data->localization_sec = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $v->years)->paginate(12);
-        }
-        else if($request->has('localization_sec')){
-            if(($request->has('localization_main')))  $data->localization_main = null;
-            $user = User::where('type', 0)->where('position_main', $v->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $v->years)->paginate(12);
-        }
-        else{
-            $user= User::where('type', 0)->where('position_main', $v->position_main)->where('years', '<=', $v->years)->paginate(12);
-            $data = $request->all();
-        }
-        return view('empresa.list',['user'=>$user, 'data'=> $data]);
+            return view('user.list',['user'=>$user]);
+        } else {
+            if($request->has('localization_main') && $request->has('localization_sec')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '<=', $u->years)->paginate(12);
+            } else if($request->has('localization_main')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where('localization_main', $request->localization_main)->where('years', '<=', $u->years)->paginate(12);
+            }
+            else if($request->has('localization_sec')){
+                $user = User::where('type', 0)->where('position_main', $u->position_main)->where('localization_sec', $request->localization_sec)->where('years', '<=', $u->years)->paginate(12);
+            }
+            else{
+                $user= User::where('type', 0)->where('position_main', $u->position_main)->where('years', '<=', $u->years)->paginate(12);
+            }
+            return view('empresa.list',['user'=>$user]);
         }
     }
 
     public function email(Request $request){
-        $user= Auth::user();
+        $user=Auth::user();
+        $dest=User::where('id', $request->id)->first();
+
+        $send = new \stdClass();
         if($user->type==1){
-            $send = new \stdClass();
             $send->userName = $user->name;
             $send->userLastName = $user->lastLame;
             $send->userEmail = $user->email;
-            $str=explode('|',$request->enviado);
-            $send->compName = $str[0];
-            $send->compEmail = $str[1];
-            $send->position_main = $str[2];
-            $send->position_sec = $str[3];
+            $send->compName = $dest->name;
+            $send->compEmail = $dest->email;
+            $send->position_main = $user->position_main;
+            $send->position_sec = $user->position_sec;
             $send->type = $user->type;
         }else{
-            $send = new \stdClass();
             $send->compName = $user->name;
             $send->compEmail = $user->email;
-            $str=explode('|',$request->enviado);
-            $send->userName = $str[0];
-            $send->userLastName = $str[1];
-            $send->userEmail = $str[2];
-            $send->position_main = $str[3];
-            $send->position_sec = $str[4];
+            $send->userName = $dest->name;
+            $send->userLastName = $dest->lastLame;
+            $send->userEmail = $dest->email;
+            $send->position_main = $user->position_main;
+            $send->position_sec = $user->position_sec;
             $send->type = $user->type;
         }
         
-        Mail::send(new \App\Mail\connection($send,$user->type));   
+        Mail::send(new \App\Mail\connection($send));   
         return redirect()->route('search')->with('email', 'Email has been sent!');
     }
 
@@ -151,9 +144,6 @@ class HomeController extends Controller
         $user = Auth::user()->id;
         $request->validate([
             'image' => 'required|image|max:5096',]);
-        
-        
-        $imageName = time().'_'.$user.'.'.$request->image->extension();
 
         $request->file('image')->store('public/images');
 
@@ -189,29 +179,21 @@ class HomeController extends Controller
     }
 
     public function generatePDF(Request $request){
-        $send = new \stdClass();
-        $str=explode('|',$request->enviado);
-        $send->userName = $str[0];
-        $send->userLastName = $str[1];
-        $send->userEmail = $str[2];
-        $send->position_main = $str[3];
-        $send->position_sec = $str[4];
-        $send->localization_main = $str[5];
-        $send->years = $str[6];
+        $user = User::where('id', $request->pdf)->first();
 
         $data = [
             'title' => 'Curriculum Vitae',
             'date' => date('d/M/Y'),
-            'name' => $str[0],
-            'lastName' => $str[1],
-            'email' => $str[2],
-            'position_main' => $str[3],
-            'position_sec' => $str[4],
-            'localization_main' => $str[5],
-            'years' => (int) $str[6],
+            'name' => $user->name,
+            'lastName' => $user->lastName,
+            'email' => $user->email,
+            'position_main' => $user->position_main,
+            'position_sec' => $user->position_sec,
+            'localization_main' => $user->localization_main,
+            'years' => (int) $user->years,
         ];
 
         $pdf = PDF::loadView('myPDF', $data);
-        return $pdf->download($str[0].'_'.$str[1].'_'.date('d/m/y').'.pdf');
+        return $pdf->download($user->name.'_'.$user->lastName.'_'.date('d/m/y').'.pdf');
     }
 }

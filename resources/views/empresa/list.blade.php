@@ -68,26 +68,23 @@ Candidatos
 <table class="table table-bordered">
     <tr class="bg-primary text-white">
         <th class="text-center">Company's name</th>
-        <th class='text-center'>Localization</th>
-        <th class='text-center'>Years of Experience Min</th>
-        <th class='text-center'>Position Wanted</th>
-        <th class='text-center'>Email</th>
+        <th class="text-center">Localization</th>
+        <th class="text-center">Years of Experience Min</th>
+        <th class="text-center">Position Wanted</th>
+        <th class="text-center">Email</th>
     </tr>
-    <form method='POST' action="{{ route('email') }}">
+    <form method="POST" action="/email">
         @csrf
-    <?php
-        use App\Models\User;
-        for($numcand=0;$numcand<count($user);$numcand++){
-                echo "<tr>";
-                echo "<td class='text-center'>".$user[$numcand]->name."</td>";
-                echo "<td class='text-center'>".$user[$numcand]->localization_main."</td>";
-                echo "<td class='text-center'>".(int)$user[$numcand]->years."</td>";
-                echo "<td class='text-center'>".$user[$numcand]->position_sec."</td>";
 
-                echo "<td class='text-center'><button type='submit' class='btn btn-primary' name='enviado' value='".$user[$numcand]->name."|".$user[$numcand]->email."|".$user[$numcand]->position_main."|".$user[$numcand]->position_sec."'>Email</button></td>";
-                echo "</tr>";
-            } 
-    ?> 
+    @foreach($user as $u)
+                <tr>
+                <td class="text-center">{{$u->name}}</td>
+                <td class="text-center">{{$u->localization_main}}</td>
+                <td class="text-center">{{(int) $u->years}}</td>
+                <td class="text-center">{{$u->position_main}}</td>
+                <td class="text-center"><button type="submit" class="btn btn-primary" name="id" value="{{$u->id}}" >Email</button></td>
+                </tr>
+        @endforeach
     </form>
 </table>
 </div>

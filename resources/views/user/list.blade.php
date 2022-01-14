@@ -81,19 +81,19 @@ Candidatos
                 <td>
                     <table>
                     <tr><td><img src="storage/images/{{ $user[$numcand]->img }}" alt='profilepic' height='200px' width='200px' style="object-fit: cover;"></td></tr>
-                    <tr><td class='text-center'>
+                    <tr><td class="text-center">
                     {{ $user[$numcand]->name }} {{ $user[$numcand]->lastName }}<br>
                     {{ $user[$numcand]->position_sec }}<br>
                     {{ (int)$user[$numcand]->years }} Years of Experience<br>
                     {{ $user[$numcand]->localization_main }}<br>
                     
-                    <div class='btn-group'>
-                    <form method='POST' action="/email">
-                    <button type='submit' class='btn btn-primary' name='enviado' value="{{ $user[$numcand]->name }}|{{ $user[$numcand]->lastName }}|{{ $user[$numcand]->email }}|{{ $user[$numcand]->position_main }}|{{ $user[$numcand]->position_sec }}">Email</button>
+                    <div class="btn-group">
+                    <form method="POST" action="/email">
+                    <button type="submit" class="btn btn-primary" name="id" value="{{$user[$numcand]->id}}">Email</button>
                     </form>
 
                     <form method='POST' action="/generate-pdf">
-                    <button type='submit' class='btn btn-outline-primary' name='enviado' value="{{ $user[$numcand]->name }}|{{ $user[$numcand]->lastName }}|{{ $user[$numcand]->email }}|{{ $user[$numcand]->position_main }}|{{ $user[$numcand]->position_sec}}|{{$user[$numcand]->localization_main }}|{{ $user[$numcand]->years }}">PDF</button>
+                    <button type='submit' class='btn btn-outline-primary' name="pdf" value="{{ $user[$numcand]->id }}">PDF</button>
                     </form>
                     </div></td>
 
