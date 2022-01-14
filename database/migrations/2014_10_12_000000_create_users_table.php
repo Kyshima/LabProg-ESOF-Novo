@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('lastName')->nullable();
             $table->boolean('default')->nullable();
             $table->string('img')->nullable();
+            $table->string('cv')->nullable();
         });
     }
 

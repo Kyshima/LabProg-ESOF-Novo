@@ -22,6 +22,8 @@ Route::get('/', [Controller::class, 'index'])->name('first');
 Route::get('/registerC', [Controller::class, 'registerC']);
 Route::get('/registerE', [Controller::class, 'registerE']);
 
+
+
 Auth::routes(['verify'=>true]);
 Route::post('/email',[HomeController::class, 'email'])->name('email');
 
@@ -36,12 +38,14 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 Route::get('/edit', [HomeController::class, 'edit'])->name('edit');
 Route::get('/editPhoto', [HomeController::class, 'editPhoto'])->name('editPhoto');
+Route::get('/editCv', [HomeController::class, 'editCv'])->name('editCv');
 
 Route::get('/delete', [HomeController::class, 'delete'])->name('delete');
 Route::post('/erase', [HomeController::class, 'erase'])->name('erase');
 
 Route::post('/update', [HomeController::class, 'update']);
 Route::post('/save', [HomeController::class, 'store']);
+Route::post('/saveCv', [HomeController::class, 'storeCv']);
 
 Route::post('/generate-pdf', [HomeController::class, 'generatePDF']);
 
