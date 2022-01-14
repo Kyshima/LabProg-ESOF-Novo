@@ -21,7 +21,6 @@ class connection extends Mailable
     public function __construct($user)
     {
         $this->user=$user;
-        $this->dest=$n;
     }
     /**
      * Build the message.
@@ -30,16 +29,15 @@ class connection extends Mailable
      */
     public function build()
     {
-        dd($this->user, $this->dest);
         if($this->user->type == 1) {
             $this->subject('I\'m Interested In Your Position!');
             $this->to($this->user->compEmail);
-            return $this->view('mail.mailToEmp',['user'=>$this->user, 'dest'=>$this->dest]);
+            return $this->view('mail.mailToEmp',['user'=>$this->user]);
         }
         else{
             $this->subject('We Would Like To Interview You');
             $this->to($this->user->userEmail);
-            return $this->view('mail.mailToUser',['user'=>$this->user, 'dest'=>$this->dest]);
+            return $this->view('mail.mailToUser',['user'=>$this->user]);
         }
     }
 }
