@@ -39,6 +39,20 @@ class HomeController extends Controller
         return view('empresa.options', ['data' => $data]); 
     }
 
+    public function subscribe()
+    {
+        $user = Auth::user();
+        return view('subscribe',['intent' => $user->createSetupIntent()]); 
+    }
+
+    public function subscribePost(Request $request)
+    {
+        dd($request->all());
+        $user = Auth::user();
+        $user->newSubscription('Subscription', $request->plan)->create($request->paymentMethod);
+        return redirect('/home'); 
+    }
+
     public function edit(){
         $user = Auth::user();
         if($user->type == 1){
