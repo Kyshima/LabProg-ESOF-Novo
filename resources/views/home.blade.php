@@ -18,6 +18,14 @@
                   </div>
                   </div>
                   @endif
+        @if(!Auth::user()->subscribed('Subscription'))
+                  <div class="card-body">
+                  <div class= "alert alert-danger">
+                    <h5>You Are Not Subscribed!</h5>
+                    <p>To Subscribe to Our Monthly Plan and get the best out of our service Click <a href="/subscribe">Here!</a></p>
+                  </div>
+                  </div>
+                  @endif
     </div>
   </div>
 </div>
@@ -34,7 +42,7 @@
                   @if(Auth::user()->subscribed('Subscription'))
                     You are Subscribed!
                   @else
-                    Still need to Subscribe.
+                    Basic Account!
                   @endif
                 </div>
                 <div class="card-body">

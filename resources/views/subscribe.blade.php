@@ -87,7 +87,6 @@
             var form = document.getElementById('payment-form');
             var cardHolderName = document.getElementById('cardholder-name');
             var clientSecret = form.dataset.secret;
-            window.alert(clientSecret);
 
             form.addEventListener('submit', async function(event) {
             event.preventDefault();
