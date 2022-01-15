@@ -53,9 +53,21 @@ class HomeController extends Controller
         return redirect('/home')->with('status', 'You Are Now Subscribed, Enjoy!'); 
     }
 
-    public function edit(){
+    public function endSubscribe(){
         $user = Auth::user();
-        if($user->type == 1){
+        return view('endSub', ['user' => $user]);
+    }
+
+    public function end(){
+        $user = Auth::user();
+        //$user->subscription('Subscription')->cancel();
+        $user->subscription('Subscription')->cancelNow();
+        return redirect('/home')->with('status', 'Your subscription was cancelled successfully'); 
+    }
+
+    public function edit(){
+            $user = Auth::user();
+            if($user->type == 1){
             return view('user.edit', ['user' => $user]);
         }
         return view('empresa.edit', ['user' => $user]);

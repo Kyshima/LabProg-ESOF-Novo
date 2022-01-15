@@ -7,18 +7,20 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Subscribe') }}</div>
+                <div class="card-body">
+                    <div class='text-center'>
+                        <h5 >You can check and send emails to who you want at the click of a button, or even download your next employee's CV for only 15€/month!</h5>
                 <form action="{{ route('subscribe.post') }}" method="post" id="payment-form" data-secret={{ $intent->client_secret }}>
                     @csrf
 
-                    <div class="card-body">
+                    
                     <div class="row">
                         <div class="col" >
                             Cardholder's Name
-                            <input type="text" class="form-control" id="cardholder-name">
+                            <input type="text" class="form-control" id="cardholder-name" value = {{Auth::user()->name}}>
                             <input type="hidden" name="plan" value="price_1KI0xLFaZTsfBrG7lljTyoLi"> 
                         </div>
-                        <div class="col">
-                        </div>  
+                        <div class="col"></div>
                     </div> 
                     <br>     
                     <div class="form-row">
@@ -33,7 +35,7 @@
                     </div>
                     <br>
                     <div class='text-center'>
-                        <button type="submit" class="btn btn-primary" style="padding-bottom:10px">Subscribe</button>
+                        <button type="submit" class="btn btn-primary" style="padding-bottom:10px">Subscribe (15€/Monthly)</button>
                     </div>      
                 </form>
             </div>

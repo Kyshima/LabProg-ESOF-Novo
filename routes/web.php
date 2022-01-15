@@ -54,3 +54,6 @@ Route::post('/addN', [RegisterControllerAdd::class, 'empresaAddNew']);
 
 Route::get('/subscribe', [HomeController::class, 'subscribe']);
 Route::post('/subscribe', [HomeController::class, 'subscribePost'])->name('subscribe.post');
+
+Route::get('/endSubscription', [HomeController::class, 'endSubscribe']);
+Route::post('/end', [HomeController::class, 'end'])->name('end');
