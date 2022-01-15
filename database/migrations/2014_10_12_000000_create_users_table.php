@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->date('endSub')->nullable();
+            $table->boolean('cancelled')->nullable();
 
             // So candidatos
             $table->string('lastName')->nullable();

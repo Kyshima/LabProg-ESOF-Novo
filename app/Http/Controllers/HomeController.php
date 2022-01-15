@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\Response;
 
@@ -50,6 +51,9 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $user->newSubscription('Subscription', $request->plan)->create($request->paymentMethod);
+        $user->endSub = Carbon::now()->addDays(30);
+        $user->cancelled = 0;
+        $user->save();
         return redirect('/home')->with('status', 'You Are Now Subscribed, Enjoy!'); 
     }
 
@@ -60,8 +64,10 @@ class HomeController extends Controller
 
     public function end(){
         $user = Auth::user();
-        //$user->subscription('Subscription')->cancel();
-        $user->subscription('Subscription')->cancelNow();
+        $user->subscription('Subscription')->cancel();
+        //$user->subscription('Subscription')->cancelNow();
+        $user->cancelled = 1;
+        $user->save();
         return redirect('/home')->with('status', 'Your subscription was cancelled successfully'); 
     }
 
