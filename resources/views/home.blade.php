@@ -18,6 +18,14 @@
                   </div>
                   </div>
                   @endif
+        @if(!Auth::user()->subscribed('Subscription'))
+                  <div class="card-body">
+                  <div class= "alert alert-primary">
+                    <h5>You Are Not Subscribed!</h5>
+                    <p>To Subscribe to Our Monthly Plan and get the best out of our service Click <a href="/subscribe">Here!</a></p>
+                  </div>
+                  </div>
+                  @endif
     </div>
   </div>
 </div>
@@ -29,17 +37,24 @@
 
                 <div class="card-body">
                   Welcome {{ Auth::user()->name }}! 
-                </div>
-                <div class="card-body">
+                  <br>
                   @if(Auth::user()->subscribed('Subscription'))
-                    You are Subscribed!
-                  @else
-                    Still need to Subscribe.
+                  You are Subscribed!
+                  <br>
+                  @if(Auth::user()->cancelled == 0)
+                  Your Subscription renews in {{Auth::user()->endSub}}!
+                  @elseif(Auth::user()->cancelled == 1 && Auth::user()->endSub > date('Y,m,d'))
+                  Your Subscription ends in {{Auth::user()->endSub}}!
                   @endif
+                  <br>
+                  @else
+                  Basic Account!
+                  <br>
+                  @endif
+
+                Check out your profile!
                 </div>
-                <div class="card-body">
-                  Check out your profile!
-                </div>
+
                 
                   <div class="card text-center" style="padding: 20px;">
                     @if(Auth::user()->type == 1)

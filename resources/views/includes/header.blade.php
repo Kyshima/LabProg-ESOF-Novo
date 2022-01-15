@@ -55,6 +55,10 @@
                                         <a class='dropdown-item' href="/subscribe">Subscribe</a>
                                     @endif
 
+                                    @if(Auth::user()->subscribed('Subscription'))
+                                        <a class='dropdown-item' href="/endSubscription">End Subscription</a>
+                                    @endif
+
                                     @if(Auth::user()->type == 0)
                                         <a class='dropdown-item' href="/add">Add New Position</a>
                                     @endif
