@@ -71,7 +71,9 @@ Candidatos
         <th class="text-center">Localization</th>
         <th class="text-center">Years of Experience Min</th>
         <th class="text-center">Position Wanted</th>
+        @if(Auth::user()->subscribed('Subscription'))
         <th class="text-center">Email</th>
+        @endif
     </tr>
     <form method="POST" action="/email">
         @csrf
@@ -82,7 +84,9 @@ Candidatos
                 <td class="text-center">{{$u->localization_main}}</td>
                 <td class="text-center">{{(int) $u->years}}</td>
                 <td class="text-center">{{$u->position_main}}</td>
+                @if(Auth::user()->subscribed('Subscription'))
                 <td class="text-center"><button type="submit" class="btn btn-primary" name="id" value="{{$u->id}}" >Email</button></td>
+                @endif
                 </tr>
         @endforeach
     </form>

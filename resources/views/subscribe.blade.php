@@ -7,15 +7,15 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Subscribe') }}</div>
-                <form action="{{ route('subscribe.post') }}" method="post" id="payment-form" data-secret={{ $intent->client_secret }}">
+                <form action="{{ route('subscribe.post') }}" method="post" id="payment-form" data-secret={{ $intent->client_secret }}>
                     @csrf
 
                     <div class="card-body">
                     <div class="row">
-                        <div class="col">
+                        <div class="col" >
                             Cardholder's Name
                             <input type="text" class="form-control" id="cardholder-name">
-                            <input type="hidden" name="plan" value="price_1KHvYNFaZTsfBrG75xPzRSjt"> 
+                            <input type="hidden" name="plan" value="price_1KI0xLFaZTsfBrG7lljTyoLi"> 
                         </div>
                         <div class="col">
                         </div>  
@@ -91,7 +91,6 @@
 
             form.addEventListener('submit', async function(event) {
             event.preventDefault();
-
             const { setupIntent, error } = await stripe.confirmCardSetup(
                 clientSecret, {
                     payment_method: {
@@ -107,6 +106,7 @@
                 errorElement.textContent = error.message;
             } else {
                 // Send the token to your server.
+                //console.log(setupIntent);
                 stripeTokenHandler(setupIntent);
             }
             });

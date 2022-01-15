@@ -48,10 +48,9 @@ class HomeController extends Controller
 
     public function subscribePost(Request $request)
     {
-        dd($request->all());
         $user = Auth::user();
         $user->newSubscription('Subscription', $request->plan)->create($request->paymentMethod);
-        return redirect('/home'); 
+        return redirect('/home')->with('status', 'You Are Now Subscribed, Enjoy!'); 
     }
 
     public function edit(){
