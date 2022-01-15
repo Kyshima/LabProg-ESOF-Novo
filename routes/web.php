@@ -51,3 +51,6 @@ Route::post('/generate-pdf', [HomeController::class, 'generatePDF']);
 
 Route::get('/add', [RegisterControllerAdd::class, 'empresaAdd'])->middleware('isEmpresa');
 Route::post('/addN', [RegisterControllerAdd::class, 'empresaAddNew']);
+
+Route::get('/subscribe', [HomeController::class, 'subscribe']);
+Route::post('/subscribe', [HomeController::class, 'subscribePost'])->name('subscribe.post');

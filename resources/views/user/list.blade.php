@@ -86,7 +86,7 @@ Candidatos
                     {{ $user[$numcand]->position_sec }}<br>
                     {{ (int)$user[$numcand]->years }} Years of Experience<br>
                     {{ $user[$numcand]->localization_main }}<br>
-                    
+                    @if(Auth::user()->subscribed('Subscription'))
                     <div class="btn-group">
                     <form method="POST" action="/email">
                     <button type="submit" class="btn btn-primary" name="id" value="{{$user[$numcand]->id}}">Email</button>
@@ -96,6 +96,7 @@ Candidatos
                     <button type='submit' class='btn btn-outline-primary' name="pdf" value="{{ $user[$numcand]->id }}">PDF</button>
                     </form>
                     </div></td>
+                    @endif
 
                 </td></tr></table>
             @endfor
