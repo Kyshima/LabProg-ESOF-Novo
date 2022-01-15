@@ -51,6 +51,10 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
+                                    @if(!Auth::user()->subscribed('Subscription'))
+                                        <a class='dropdown-item' href="/subscribe">Subscribe</a>
+                                    @endif
+
                                     @if(Auth::user()->type == 0)
                                         <a class='dropdown-item' href="/add">Add New Position</a>
                                     @endif

@@ -28,7 +28,14 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                  Welcome {{ Auth::user()->name }}!
+                  Welcome {{ Auth::user()->name }}! 
+                </div>
+                <div class="card-body">
+                  @if(Auth::user()->subscribed('Subscription'))
+                    You are Subscribed!
+                  @else
+                    Still need to Subscribe.
+                  @endif
                 </div>
                 <div class="card-body">
                   Check out your profile!
