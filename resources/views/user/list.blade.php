@@ -18,7 +18,7 @@ Candidatos
             @php $reg=array('Norte','Centro','Sul'); @endphp
 
             @foreach($reg as $r)
-            @if(isset($_GET['localization_sec']) && $_GET['localization_sec']==$r) 
+            @if((isset($_GET['localization_sec']) && $_GET['localization_sec']==$r)||(isset($data->localization_sec) && $data->localization_sec==$r)) 
                 <li><div class="form-check"><input checked type="radio" class="form-check-input" name="localization_sec" value = "{{ $r }}">{{ $r }}</div></li>
             @else
                 <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_sec" value = "{{ $r }}">{{ $r }}</div></li>
@@ -31,7 +31,7 @@ Candidatos
         @php $dist=array('Aveiro','Beja','Braga','Bragança','Castelo Branco','Coimbra','Évora','Faro','Guarda','Leiria','Lisboa','Portalegre','Porto','Santarém','Setubal','Viana do Castelo','Vila Real','Viseu'); @endphp  
 
         @foreach($dist as $d)
-            @if(isset($_GET['localization_main']) && $_GET['localization_main']==$d) 
+            @if((isset($_GET['localization_main']) && $_GET['localization_main']==$d)||(isset($data->localization_main) && $data->localization_main==$r)) 
                 <li><div class="form-check"><input checked type="radio" class="form-check-input" name="localization_main" value = "{{ $d }}">{{ $d }}</div></li>
             @else
                 <li><div class="form-check"><input type="radio" class="form-check-input" name="localization_main" value = "{{ $d }}">{{ $d }}</div></li>
@@ -108,7 +108,7 @@ Candidatos
         <h3 class="text-center">No Candidates have been found!</h3>
         @endforelse
 
-    {!! $user->links('pagination::bootstrap-4')!!}
+    {!! $user->appends($data)->links('pagination::bootstrap-4')!!}
   </div> 
 </div>
 @endsection

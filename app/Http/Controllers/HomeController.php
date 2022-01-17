@@ -117,6 +117,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $u = Auth::user();
+        $data = $request->all();
         if($u->type == 0){
             if($request->has('localization_main') && $request->has('localization_sec')){
                 $user = User::where('type', 1)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '>=', $u->years)->paginate(12);
@@ -129,7 +130,7 @@ class HomeController extends Controller
             else{
                 $user= User::where('type', 1)->where('position_main', $u->position_main)->where('years', '>=', $u->years)->paginate(12);
             }
-            return view('user.list',['user'=>$user]);
+            return view('user.list',['user'=>$user,'data'=> $data]);
         } else {
             if($request->has('localization_main') && $request->has('localization_sec')){
                 $user = User::where('type', 0)->where('position_main', $u->position_main)->where(function ($query) use ($request){ $query->where('localization_main',$request->localization_main) ->orWhere('localization_sec', $request->localization_sec);})->where('years', '<=', $u->years)->paginate(12);
@@ -142,7 +143,7 @@ class HomeController extends Controller
             else{
                 $user= User::where('type', 0)->where('position_main', $u->position_main)->where('years', '<=', $u->years)->paginate(12);
             }
-            return view('empresa.list',['user'=>$user]);
+            return view('empresa.list',['user'=>$user,'data'=> $data]);
         }
     }
 
