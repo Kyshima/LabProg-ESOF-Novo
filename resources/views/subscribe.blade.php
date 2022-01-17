@@ -18,7 +18,7 @@
                         <div class="col" >
                             Cardholder's Name
                             <input type="text" class="form-control" id="cardholder-name" value = {{Auth::user()->name}}>
-                            <input type="hidden" name="plan" value="price_1KI0xLFaZTsfBrG7lljTyoLi"> 
+                            <input type="hidden" name="plan" value="price_1KIzARFaZTsfBrG7VNUQTLO0"> 
                         </div>
                         <div class="col"></div>
                     </div> 

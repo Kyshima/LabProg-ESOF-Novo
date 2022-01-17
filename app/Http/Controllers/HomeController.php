@@ -215,9 +215,9 @@ class HomeController extends Controller
 
     public function erase(){
         $u = Auth::user();
-        $data = User::where('type', 0)->where('email', $u->email)->get();
         $email=$u->email;
-
+        $data = User::where('email', $email)->get();
+        
         $user = User::find(Auth::user()->id);
         Auth::logout();
         $user->delete();
